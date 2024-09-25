@@ -1,193 +1,125 @@
 -- Noah Stewart and Rin Meng Lab02 Revised
 -- Question 1
-CREATE TABLE AUTHOR (
-    ID INT PRIMARY KEY,
-    NAME VARCHAR(30)
-);
+CREATE TABLE
+    Author (id INT PRIMARY KEY, name VARCHAR(30));
 
-CREATE TABLE INGREDIENT (
-    ID CHAR(5) PRIMARY KEY,
-    NAME VARCHAR(30)
-);
+CREATE TABLE
+    Ingredient (id CHAR(5) PRIMARY KEY, name VARCHAR(30));
 
-CREATE TABLE RECIPE (
-    ID INT PRIMARY KEY,
-    NAME VARCHAR(40),
-    AUTHORID INT,
-    DIRECTIONS VARCHAR(255),
-    FOREIGN KEY (AUTHORID) REFERENCES AUTHOR (ID) ON DELETE SET NULL ON UPDATE NO ACTION
-);
+CREATE TABLE
+    Recipe (
+        id INT PRIMARY KEY,
+        name VARCHAR(40),
+        authorid INT,
+        directions VARCHAR(255),
+        FOREIGN KEY (authorid) REFERENCES Author (id) ON DELETE SET NULL ON UPDATE NO ACTION
+    );
 
-CREATE TABLE COOK (
-    ID DATETIME PRIMARY KEY,
-    RECIPEID INT,
-    COMMENT VARCHAR(255),
-    FOREIGN KEY (RECIPEID) REFERENCES RECIPE (ID) ON DELETE CASCADE ON UPDATE CASCADE
-);
+CREATE TABLE
+    Cook (
+        id DATETIME PRIMARY KEY,
+        recipeid INT,
+        comment VARCHAR(255),
+        FOREIGN KEY (recipeid) REFERENCES Recipe (id) ON DELETE CASCADE ON UPDATE CASCADE
+    );
 
-CREATE TABLE REQUIRES (
-    RECIPEID INT,
-    INGREDIENTID CHAR(5),
-    AMOUNT FLOAT,
-    PRIMARY KEY (RECIPEID, INGREDIENTID),
-    FOREIGN KEY (RECIPEID) REFERENCES RECIPE (ID) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (INGREDIENTID) REFERENCES INGREDIENT (ID) ON DELETE CASCADE ON UPDATE CASCADE
-);
+CREATE TABLE
+    Requires (
+        recipeid INT,
+        ingredientid CHAR(5),
+        amount FLOAT,
+        PRIMARY KEY (recipeid, ingredientid),
+        FOREIGN KEY (recipeid) REFERENCES Recipe (id) ON DELETE CASCADE ON UPDATE CASCADE,
+        FOREIGN KEY (ingredientid) REFERENCES Ingredient (id) ON DELETE CASCADE ON UPDATE CASCADE
+    );
 
 -- Question 2
 -- Author
-INSERT INTO AUTHOR (
-    ID,
-    NAME
-) VALUES (
-    1,
-    'Joe Smith'
-),
-(
-    2,
-    'Fred Funk'
-);
+INSERT INTO
+    Author (id, name)
+VALUES
+    (1, 'Joe Smith'),
+    (2, 'Fred Funk');
 
 -- Ingredient
-INSERT INTO INGREDIENT (
-    ID,
-    NAME
-) VALUES (
-    'BUTTR',
-    'Butter'
-),
-(
-    'FLOUR',
-    'Flour'
-),
-(
-    'MILK',
-    'Milk'
-),
-(
-    'EGGS',
-    'Eggs'
-),
-(
-    'SUGAR',
-    'Sugar'
-);
+INSERT INTO
+    Ingredient (id, name)
+VALUES
+    ('BUTTR', 'Butter'),
+    ('FLOUR', 'Flour'),
+    ('MILK', 'Milk'),
+    ('EGGS', 'Eggs'),
+    ('SUGAR', 'Sugar');
 
 -- Recipe
-INSERT INTO RECIPE (
-    ID,
-    NAME,
-    AUTHORID,
-    DIRECTIONS
-) VALUES (
-    100,
-    'Cookies',
-    1,
-    'Mix butter, flour, milk, eggs, and sugar. Then hope for the best.'
-),
-(
-    200,
-    'Bread',
-    2,
-    'Knead flour with milk and eggs. Bake at 450F or until brown.'
-);
+INSERT INTO
+    Recipe (id, name, authorid, directions)
+VALUES
+    (
+        100,
+        'Cookies',
+        1,
+        'Mix butter, flour, milk, eggs, and sugar. Then hope for the best.'
+    ),
+    (
+        200,
+        'Bread',
+        2,
+        'Knead flour with milk and eggs. Bake at 450F or until brown.'
+    );
 
 -- Requires
-INSERT INTO REQUIRES (
-    RECIPEID,
-    INGREDIENTID,
-    AMOUNT
-) VALUES
- -- Requires for Cookies
-(
-    100,
-    'BUTTR',
-    100
-),
-(
-    100,
-    'FLOUR',
-    200
-),
-(
-    100,
-    'MILK',
-    50
-),
-(
-    100,
-    'EGGS',
-    2
-),
-(
-    100,
-    'SUGAR',
-    100
-),
- 
--- Requires for Bread
-(
-    200,
-    'FLOUR',
-    500
-),
-(
-    200,
-    'MILK',
-    300
-),
-(
-    200,
-    'EGGS',
-    3
-);
+INSERT INTO
+    Requires (recipeid, ingredientid, amount)
+VALUES
+    -- Requires for Cookies
+    (100, 'BUTTR', 100),
+    (100, 'FLOUR', 200),
+    (100, 'MILK', 50),
+    (100, 'EGGS', 2),
+    (100, 'SUGAR', 100),
+    -- Requires for Bread
+    (200, 'FLOUR', 500),
+    (200, 'MILK', 300),
+    (200, 'EGGS', 3);
 
-INSERT INTO COOK (
-    ID,
-    RECIPEID,
-    COMMENT
-) VALUES (
-    '2024-09-15 00:00:00',
-    200,
-    '(no comment)'
-),
-(
-    '2024-09-23 13:35:45',
-    100,
-    'It actually worked!'
-);
+INSERT INTO
+    Cook (id, recipeid, comment)
+VALUES
+    ('2024-09-15 00:00:00', 200, '(no comment)'),
+    ('2024-09-23 13:35:45', 100, 'It actually worked!');
 
 -- Update
 -- 1
-UPDATE INGREDIENT
+UPDATE Ingredient
 SET
-    NAME = 'Skim Milk'
+    name = 'Skim Milk'
 WHERE
-    ID = 'MILK';
+    id = 'MILK';
 
 -- 2
-UPDATE REQUIRES
+UPDATE Requires
 SET
-    AMOUNT = AMOUNT * 2
+    amount = amount * 2
 WHERE
-    RECIPEID = '100';
+    recipeid = '100';
 
 -- Delete
 -- 1
-DELETE FROM RECIPE
+DELETE FROM Recipe
 WHERE
-    AUTHORID = (
+    authorid = (
         SELECT
-            ID
+            id
         FROM
-            AUTHOR
+            Author
         WHERE
-            NAME = 'Fred Funk'
+            name = 'Fred Funk'
     );
 
 -- One row was deleted from Recipe when this command is ran.
 -- 2
-DELETE FROM REQUIRES
+DELETE FROM Requires
 WHERE
-    RECIPEID = 200
-    AND AMOUNT > 2;
+    recipeid = 200
+    AND amount > 2;
