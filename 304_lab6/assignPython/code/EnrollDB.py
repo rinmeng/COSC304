@@ -246,7 +246,16 @@ class EnrollDB:
     def updateStudentMark(self, studentId, courseNum, sectionNum, grade):
         """Updates a student's mark in an enrolled course section and updates their grade."""
 
-        # TODO: Execute statement. Make sure to commit
+        # 11 DID: Execute statement. Make sure to commit
+        cursor = self.cnx.cursor()
+        try:
+            query = "UPDATE enroll SET grade = %s WHERE sid = %s AND cnum = %s AND secnum = %s"
+            cursor.execute(query, (grade, studentId, courseNum, sectionNum))
+            self.cnx.commit()
+        except Exception as e:
+            print(f"An error occurred: {e}")
+        finally:
+            cursor.close()
         return
 
     def query1(self):
