@@ -111,19 +111,15 @@ class EnrollDB:
         Return:
              String containing students"""
 
-        # TODO: Execute query and build output string
+        # DID: Execute query and build output string
         output = "Student Id, Student Name, Course Number, Section Number"
         cursor = self.cnx.cursor()
         try:
-            query = f" 
-            SELECT s.sid, s.sname, c.cnum, c.cname 
-            FROM student s
-            JOIN enroll e
-            ON s.sid = e.sid
-            JOIN section st
-            ON s.sid = st.sid
-            "
+            query = f"SELECT s.sid, s.sname, e.cnum, e.secnum FROM student s JOIN enroll e ON s.sid = e.sid WHERE e.cnum = '{courseNum}'"
+            cursor.execute(query)
 
+            for sid, sname, cnum, cname in cursor.fetchall():
+                output += f"\n{sid}, {sname}, {cnum}, {cname}"
         except Exception as e:
             print(f"An error occurred: {e}")
         finally:
@@ -241,14 +237,15 @@ print("Executing list professors in a department: none")
 print(enrollDB.listDeptProfessors("none"))
 
 print("Executing list students in course: COSC 304")
-enrollDB.listCourseStudents("COSC 304")
+print(enrollDB.listCourseStudents("COSC 304"))
 print("Executing list students in course: DATA 301")
-enrollDB.listCourseStudents("DATA 301")
+print(enrollDB.listCourseStudents("DATA 301"))
+
 
 print("Executing compute GPA for student: 45671234")
-enrollDB.resultSetToString(enrollDB.computeGPA("45671234"), 10)
+print(enrollDB.resultSetToString(enrollDB.computeGPA("45671234"), 10))
 print("Executing compute GPA for student: 00000000")
-enrollDB.resultSetToString(enrollDB.computeGPA("45671234"), 10)
+print(enrollDB.resultSetToString(enrollDB.computeGPA("00000000"), 10))
 
 print("Adding student 55555555:")
 enrollDB.addStudent("55555555", "Stacy Smith", "F", "1998-01-01")
