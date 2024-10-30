@@ -20,7 +20,7 @@ class EnrollDB:
 
     def init(self):
         """Creates and initializes the database"""
-        fileName = "./assignPython/code/university.ddl"
+        fileName = "./304_lab6/assignPython/code/university.ddl"
         print("Loading data")
 
         try:
@@ -144,6 +144,7 @@ class EnrollDB:
         """Inserts a student into the databases."""
 
         # TODO: Execute statement. Make sure to commit
+        cursor = self.cnx.cursor()
         return
 
     def deleteStudent(self, studentId):
