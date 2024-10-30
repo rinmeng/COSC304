@@ -259,9 +259,17 @@ class EnrollDB:
         return
 
     def query1(self):
-        """Return the list of students (id and name) that have not registered in any course section. Hint: Left join can be used instead of a subquery."""
+        """Return the list of students (id and name) that have not registered in any course section.
+        Hint: Left join can be used instead of a subquery."""
 
-        # TODO: Execute the query and return a cursor
+        # 11 DID: Execute the query and return a cursor
+        cursor = self.cnx.cursor()
+        try:
+            query = "SELECT s.sid, s.sname FROM student s LEFT JOIN enroll e ON s.sid = e.sid WHERE e.sid IS NULL"
+            cursor.execute(query)
+            return cursor
+        except Exception as e:
+            print(f"An error occurred: {e}")
         return None
 
     def query2(self):
@@ -269,7 +277,23 @@ class EnrollDB:
         Return only students born after March 15, 1992. A student is also only in the result if their gpa is above 3.1 or registered in 0 courses.
         Order by GPA descending then student name ascending and show only the top 5."""
 
-        # TODO: Execute the query and return a cursor
+        # 12 TODO: Execute the query and return a cursor
+        cursor = self.cnx.cursor()
+        try:
+            query = (
+                "SELECT s.sid, s.sname, COUNT(e.secnum) numcourses, AVG(e.grade) gpa "
+                "FROM student s "
+                "LEFT JOIN enroll e ON s.sid = e.sid "
+                "WHERE s.birthdate > '1992-03-15' "
+                "GROUP BY s.sid, s.sname "
+                "HAVING gpa > 3.1 OR numcourses = 0 "
+                "ORDER BY gpa DESC, s.sname ASC "
+                "LIMIT 5"
+            )
+            cursor.execute(query)
+            return cursor
+        except Exception as e:
+            print(f"An error occurred: {e}")
         return None
 
     def query3(self):
@@ -278,7 +302,7 @@ class EnrollDB:
         Format:
         cnum, numsections, numstudents, avggrade, numprof"""
 
-        # TODO: Execute the query and return a cursor
+        # 13 TODO: Execute the query and return a cursor
         return None
 
     def query4(self):
@@ -286,7 +310,7 @@ class EnrollDB:
         Format:
         EmployeeId, EmployeeName, orderCount"""
 
-        # TODO: Execute the query and return a cursor
+        # 14 TODO: Execute the query and return a cursor
         return None
 
     # Do NOT change anything below here
