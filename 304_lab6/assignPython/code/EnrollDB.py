@@ -7,7 +7,6 @@ class EnrollDB:
     def connect(self):
         """Makes a connection to the database and returns connection to caller"""
         try:
-            # TODO: Fill in your connection information
             print("Connecting to database.")
             self.cnx = mysql.connector.connect(
                 user="testuser",
@@ -21,7 +20,7 @@ class EnrollDB:
 
     def init(self):
         """Creates and initializes the database"""
-        fileName = "university.ddl"
+        fileName = "./assignPython/code/university.ddl"
         print("Loading data")
 
         try:
@@ -64,8 +63,20 @@ class EnrollDB:
 
         output = "sid, sname, sex, birthdate, gpa"
         cursor = self.cnx.cursor()
-        # TODO: Execute query and build output string
-        cursor.close()
+
+        # DID: Execute query and build output string
+
+        try:
+            query = "SELECT * FROM student"
+            cursor.execute(query)
+
+            for sid, sname, sex, birthdate, gpa in cursor.fetchall():
+                # Format each student's data and append to the output string
+                output += f"\n{sid}, {sname}, {sex}, {birthdate}, {gpa}"
+        except Exception as e:
+            print(f"An error occurred: {e}")
+        finally:
+            cursor.close()
 
         return output
 
@@ -77,8 +88,20 @@ class EnrollDB:
         Returns:
                  String containing professor information"""
 
-        # TODO: Execute query and build output string
-        return ""
+        # DID: Execute query and build output string
+        output = "Professor Name, Department Name"
+        cursor = self.cnx.cursor()
+        try:
+            query = f"SELECT pname, dname FROM prof WHERE dname = '{deptName}'"
+            cursor.execute(query)
+
+            for pname, dname in cursor.fetchall():
+                output += f"\n{pname}, {dname}"
+        except Exception as e:
+            print(f"An error occurred: {e}")
+        finally:
+            cursor.close()
+        return output
 
     def listCourseStudents(self, courseNum):
         """Returns a String with all students in a given course number (all sections).
@@ -89,7 +112,24 @@ class EnrollDB:
              String containing students"""
 
         # TODO: Execute query and build output string
-        return ""
+        output = "Student Id, Student Name, Course Number, Section Number"
+        cursor = self.cnx.cursor()
+        try:
+            query = f" 
+            SELECT s.sid, s.sname, c.cnum, c.cname 
+            FROM student s
+            JOIN enroll e
+            ON s.sid = e.sid
+            JOIN section st
+            ON s.sid = st.sid
+            "
+
+        except Exception as e:
+            print(f"An error occurred: {e}")
+        finally:
+            cursor.close()
+
+        return output
 
     def computeGPA(self, studentId):
         """Returns a cursor with a row containing the computed GPA (named as gpa) for a given student id."""
