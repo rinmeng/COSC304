@@ -297,12 +297,43 @@ class EnrollDB:
         return None
 
     def query3(self):
-        """For each course, return the number of sections (numsections), total number of students enrolled (numstudents), average grade (avggrade), and number of distinct professors who taught the course (numprofs).
-        Only show courses in Chemistry or Computer Science department. Make sure to show courses even if they have no students. Do not show a course if there are no professors teaching that course.
+        """
+        For each course,
+        return the number of sections (numsections),
+        total number of students enrolled (numstudents),
+        average grade (avggrade),
+        and number of distinct professors who taught the course (numprofs).
+
+        Only show courses in Chemistry or Computer Science department.
+        Make sure to show courses even if they have no students.
+        Do not show a course if there are no professors teaching that course.
         Format:
-        cnum, numsections, numstudents, avggrade, numprof"""
+        cnum, numsections, numstudents, avggrade, numprof
+        """
 
         # 13 TODO: Execute the query and return a cursor
+
+        cursor = self.cnx.cursor()
+        try:
+            query = (
+                "SELECT c.cnum, "
+                "COUNT(DISTINCT s.secnum) AS numsections, "
+                "COUNT(e.sid) AS numstudents, "
+                "AVG(e.grade) AS avggrade, "
+                "COUNT(DISTINCT p.pname) AS numprofs "
+                "FROM course c "
+                "LEFT JOIN section s ON c.cnum = s.cnum "
+                "LEFT JOIN enroll e ON s.cnum = e.cnum AND s.secnum = e.secnum "
+                "LEFT JOIN prof p ON s.pname = p.pname "
+                "WHERE p.dname IN ('Chemistry', 'Computer Science') OR p.pname IS NULL "
+                "GROUP BY c.cnum "
+                "HAVING COUNT(DISTINCT p.pname) > 0"
+            )
+            cursor.execute(query)
+            return cursor
+        except Exception as e:
+            print(f"An error occurred: {e}")
+
         return None
 
     def query4(self):
