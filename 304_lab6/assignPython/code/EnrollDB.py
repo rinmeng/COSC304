@@ -143,38 +143,104 @@ class EnrollDB:
     def addStudent(self, studentId, studentName, sex, birthDate):
         """Inserts a student into the databases."""
 
-        # TODO: Execute statement. Make sure to commit
+        # 5 DID: Execute statement. Make sure to commit
         cursor = self.cnx.cursor()
-        return
+        try:
+            query = "INSERT INTO student (sid, sname, sex, birthdate) VALUES (%s, %s, %s, %s)"
+            cursor.execute(query, (studentId, studentName, sex, birthDate))
+            self.cnx.commit()
+        except Exception as e:
+            print(f"An error occurred: {e}")
+        finally:
+            cursor.close()
+        return None
 
     def deleteStudent(self, studentId):
         """Deletes a student from the databases."""
 
-        # TODO: Execute statement. Make sure to commit
+        # 6 DID: Execute statement. Make sure to commit
+        cusor = self.cnx.cursor()
+        try:
+            query = "DELETE from student WHERE sid = %s"
+            cusor.execute(query, (studentId,))
+            self.cnx.commit()
+        except Exception as e:
+            print(f"An error occurred: {e}")
+        finally:
+            cusor.close()
         return
 
     def updateStudent(self, studentId, studentName, sex, birthDate, gpa):
-        """Updates a student in the databases."""
+        """Updates a student in the database."""
 
-        # TODO: Execute statement. Make sure to commit
+        cursor = self.cnx.cursor()
+        try:
+            query = (
+                "UPDATE student SET "
+                "sname = %s, "
+                "sex = %s, "
+                "birthdate = %s, "
+                "gpa = %s "
+                "WHERE sid = %s"
+            )
+            # Use parameterized query to avoid SQL injection
+            cursor.execute(query, (studentName, sex, birthDate, gpa, studentId))
+            self.cnx.commit()
+        except Exception as e:
+            print(f"An error occurred: {e}")
+        finally:
+            cursor.close()
         return
 
     def newEnroll(self, studentId, courseNum, sectionNum, grade):
         """Creates a new enrollment in a course section."""
 
-        # TODO: Execute statement. Make sure to commit
+        # 8 DID: Execute statement. Make sure to commit
+        cursor = self.cnx.cursor()
+        try:
+            query = (
+                "INSERT INTO enroll (sid, cnum, secnum, grade) VALUES (%s, %s, %s, %s)"
+            )
+            cursor.execute(query, (studentId, courseNum, sectionNum, grade))
+            self.cnx.commit()
+        except Exception as e:
+            print(f"An error occurred: {e}")
+        finally:
+            cursor.close()
         return
 
     def updateStudentGPA(self, studentId):
         """Updates a student's GPA based on courses taken."""
 
-        # TODO: Execute statement. Make sure to commit
+        # 9 DID: Execute statement. Make sure to commit
+        cursor = self.cnx.cursor()
+        try:
+            query = (
+                "UPDATE student SET "
+                f"gpa = (SELECT AVG(grade) FROM enroll WHERE sid = '{studentId}') "
+                f"WHERE sid = '{studentId}'"
+            )
+            cursor.execute(query)
+            self.cnx.commit()
+        except Exception as e:
+            print(f"An error occurred: {e}")
+        finally:
+            cursor.close()
         return
 
     def removeStudentFromSection(self, studentId, courseNum, sectionNum):
         """Removes a student from a course and updates their GPA."""
 
-        # TODO: Execute statement. Make sure to commit
+        # 10 DID: Execute statement. Make sure to commit
+        cursor = self.cnx.cursor()
+        try:
+            query = f"DELETE FROM enroll WHERE sid = '{studentId}' AND cnum = '{courseNum}' AND secnum = '{sectionNum}'"
+            cursor.execute(query)
+            self.cnx.commit()
+        except Exception as e:
+            print(f"An error occurred: {e}")
+        finally:
+            cursor.close()
         return
 
     def updateStudentMark(self, studentId, courseNum, sectionNum, grade):

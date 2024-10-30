@@ -314,7 +314,7 @@ class TestEnrollDB(unittest.TestCase):
         # Re-initialize database
         self.enrollDB.init()
 
-        print("\nTest update student mark:\n")
+        print("\nTest update students GPA:\n")
 
         # Add an order with a customer
         self.enrollDB.newEnroll("98123434", "COSC 304", "001", 3.97)
