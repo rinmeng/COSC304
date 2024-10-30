@@ -64,7 +64,7 @@ class EnrollDB:
         output = "sid, sname, sex, birthdate, gpa"
         cursor = self.cnx.cursor()
 
-        # DID: Execute query and build output string
+        # 1 DID: Execute query and build output string
 
         try:
             query = "SELECT * FROM student"
@@ -88,7 +88,7 @@ class EnrollDB:
         Returns:
                  String containing professor information"""
 
-        # DID: Execute query and build output string
+        # 2 DID: Execute query and build output string
         output = "Professor Name, Department Name"
         cursor = self.cnx.cursor()
         try:
@@ -111,7 +111,7 @@ class EnrollDB:
         Return:
              String containing students"""
 
-        # DID: Execute query and build output string
+        # 3 DID: Execute query and build output string
         output = "Student Id, Student Name, Course Number, Section Number"
         cursor = self.cnx.cursor()
         try:
@@ -130,8 +130,15 @@ class EnrollDB:
     def computeGPA(self, studentId):
         """Returns a cursor with a row containing the computed GPA (named as gpa) for a given student id."""
 
-        # TODO: Execute the query and return a cursor
-        return None
+        # 4 DID: Execute query and return cursor
+        cursor = self.cnx.cursor()
+        try:
+            query = f"SELECT AVG(grade) gpa FROM enroll WHERE sid = '{studentId}'"
+            cursor.execute(query)
+            return cursor
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return None
 
     def addStudent(self, studentId, studentName, sex, birthDate):
         """Inserts a student into the databases."""
