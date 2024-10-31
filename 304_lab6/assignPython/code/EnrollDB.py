@@ -311,7 +311,7 @@ class EnrollDB:
         cnum, numsections, numstudents, avggrade, numprof
         """
 
-        # 13 TODO: Execute the query and return a cursor
+        # 13 DID: Execute the query and return a cursor
 
         cursor = self.cnx.cursor()
         try:
@@ -337,11 +337,35 @@ class EnrollDB:
         return None
 
     def query4(self):
-        """Return the students who received a higher grade than their course section average in at least two courses. Order by number of courses higher than the average and only show top 5.
+        """
+        Return the students who received a higher grade than their course section average in at least two courses.
+        Order by number of courses higher than the average and only show top 5.
+
         Format:
-        EmployeeId, EmployeeName, orderCount"""
+        sid, sname, numhigher"""
 
         # 14 TODO: Execute the query and return a cursor
+        cursor = self.cnx.cursor()
+        try:
+            query = (
+                "SELECT s.sid, s.sname, COUNT(e.grade > avggrade) AS numhigher "
+                "FROM student s "
+                "JOIN enroll e ON s.sid = e.sid "
+                "JOIN ("
+                "SELECT cnum, secnum, AVG(grade) AS avggrade "
+                "FROM enroll "
+                "GROUP BY cnum, secnum"
+                ") AS avggrades ON e.cnum = avggrades.cnum AND e.secnum = avggrades.secnum "
+                "WHERE e.grade > avggrades.avggrade "
+                "GROUP BY s.sid, s.sname "
+                "HAVING COUNT(e.grade > avggrades.avggrade) >= 2 "
+                "ORDER BY numhigher DESC "
+                "LIMIT 5"
+            )
+            cursor.execute(query)
+            return cursor
+        except Exception as e:
+            print(f"An error occurred: {e}")
         return None
 
     # Do NOT change anything below here
