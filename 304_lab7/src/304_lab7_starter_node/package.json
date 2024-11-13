@@ -1,0 +1,26 @@
+{
+  "name": "cosc304lab7",
+  "version": "1.0.0",
+  "description": "COSC 304 Lab 7 Node Variant",
+  "repository": "N/A",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "css": "tailwindcss -i ./src/input.css -o ./public/style.css --watch",
+    "dev": "concurrently \"npm run css\" \"npm run start\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^9.1.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.1.0",
+    "express-session": "^1.17.1",
+    "moment": "^2.28.0",
+    "mssql": "^6.2.1",
+    "nodemon": "^2.0.4",
+    "tailwindcss": "^3.4.14",
+    "tedious": "^9.2.1"
+  }
+}
