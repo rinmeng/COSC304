@@ -12,6 +12,7 @@ router.get('/', function (req, res, next) {
 
     /** $name now contains the search string the user entered
      Use it to build a query and print out the results. **/
+    
 
     /** Create and validate connection **/
 

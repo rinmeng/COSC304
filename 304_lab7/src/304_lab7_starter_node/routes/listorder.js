@@ -9,6 +9,7 @@ router.get('/', function (req, res, next) {
     res.write('<link href="/style.css" rel="stylesheet">');
     res.write('<body class="text-white text-center bg-slate-600">');
     /** Create connection, and validate that it connected successfully **/
+    res.write('<h1>Order List</h1> </body>');
 
     /**
     Useful code for formatting currency:
