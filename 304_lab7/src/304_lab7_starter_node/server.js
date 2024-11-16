@@ -14,12 +14,10 @@ const app = express();
 
 app.use(express.static('public'));
 
-
-
 // This DB Config is accessible globally
 dbConfig = {
   server: 'cosc304_sqlserver',
-  database: 'orders',
+  database: 'shop',
   authentication: {
     type: 'default',
     options: {
@@ -30,7 +28,7 @@ dbConfig = {
   options: {
     encrypt: false,
     enableArithAbort: false,
-    database: 'orders'
+    database: 'shop'
   }
 }
 
