@@ -11,7 +11,8 @@ router.get('/', function (req, res, next) {
             res.setHeader('Content-Type', 'text/html');
             res.write('<title>Data Loader</title>');
             res.write('<h1>Connecting to database.</h1><p>');
-
+            // TODO: Here we are loading the DDL file,
+            // we need to make sure that we are loading our SQLServer_shop.ddl file
             let data = fs.readFileSync("./ddl/SQLServer_shop.ddl", { encoding: 'utf8' });
             let commands = data.split(";");
             for (let i = 0; i < commands.length; i++) {

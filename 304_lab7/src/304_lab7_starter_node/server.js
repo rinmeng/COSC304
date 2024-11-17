@@ -15,9 +15,12 @@ const app = express();
 app.use(express.static('public'));
 
 // This DB Config is accessible globally
+// TODO: THIS GIVES US AN ERROR WHEN VISITING localhost:3000/loaddata gives us this error
+// ConnectionError: Failed to connect to cosc304_sqlserver:1433 - getaddrinfo ENOTFOUND cosc304_sqlserver
+// CHECK loaddata.js for more info 
 dbConfig = {
   server: 'cosc304_sqlserver',
-  database: 'shop',
+  database: 'orders',
   authentication: {
     type: 'default',
     options: {
@@ -28,7 +31,7 @@ dbConfig = {
   options: {
     encrypt: false,
     enableArithAbort: false,
-    database: 'shop'
+    database: 'orders'
   }
 }
 

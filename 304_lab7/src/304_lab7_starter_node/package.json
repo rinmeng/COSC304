@@ -13,7 +13,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "concurrently": "^9.1.0",
     "express": "^4.17.1",
     "express-handlebars": "^5.1.0",
     "express-session": "^1.17.1",
@@ -22,5 +21,8 @@
     "nodemon": "^2.0.4",
     "tailwindcss": "^3.4.14",
     "tedious": "^9.2.1"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
   }
 }
