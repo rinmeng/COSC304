@@ -57,7 +57,6 @@ router.get('/', function (req, res, next) {
         <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/showcart'>Show Cart</a>
       </nav>`);
 
-
       res.write("<h2 class='text-7xl my-5 font-light'>Product List</h2>");
 
       // We don't need to call another function to get the search term, we can just use the query parameter
@@ -108,6 +107,7 @@ router.get('/', function (req, res, next) {
             </div>
           `);
         }
+        const addToCartUrl = `/addcart?id=${encodeURIComponent(product.productId)}&name=${encodeURIComponent(product.productName)}&price=${encodeURIComponent(product.productPrice)}`;
 
         res.write(`
           <div class="grid grid-cols-4 gap-4 items-center bg-slate-700 p-4 rounded-lg hover:bg-slate-800 t200e">
@@ -118,7 +118,7 @@ router.get('/', function (req, res, next) {
             </div>
             <div class="text-green-400 font-medium">$${product.productPrice.toFixed(2)}</div>
             <div>
-              <a href='/showcart' class="btn">
+              <a href='${addToCartUrl}' class="btn">
                 Add to Cart
               </a>
             </div>

@@ -8,14 +8,14 @@ router.get('/', async function (req, res, next) {
         res.setHeader('Content-Type', 'text/html');
         res.write('<title>PC8th Order List</title>');
         res.write('<link href="/style.css" rel="stylesheet">');
-        res.write('<body class="text-white text-center bg-slate-600">');
+        res.write('<body class="text-white bg-slate-600">');
         res.write(`<nav class='flex justify-around items-center bg-slate-700 p-5 text-2xl'>
         <a class='opacity-50 p-3 hover:opacity-100 t200e ' href='/'>Home</a>
         <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/listprod'>Product List</a>
         <a class='opacity-100 p-3 hover:opacity-100 t200e' href='/listorder'>Order List</a>
         <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/showcart'>Show Cart</a>
         </nav>`);
-        res.write('<h1 class="text-7xl my-5 font-light">Order List</h1>');
+        res.write('<h1 class="text-5xl font-bold text-center my-8 ">Order List</h1>');
 
         let pool = await sql.connect(dbConfig);
         console.log('Connection successful! Executing query...');
@@ -30,12 +30,10 @@ router.get('/', async function (req, res, next) {
         `;
         let results = await pool.request().query(sqlQuery);
 
-        res.write('<div class="container mx-auto">');
+        res.write('<div class="max-w-5xl mx-auto p-4">');
 
         if (results.recordset.length > 0) {
-            // Using for...of loop to handle async operations properly
             for (const order of results.recordset) {
-                // Query to get products for this order
                 let productsQuery = `
                     SELECT op.productId, op.quantity, op.price,
                            p.productName
@@ -46,51 +44,46 @@ router.get('/', async function (req, res, next) {
                 let productResults = await pool.request().query(productsQuery);
 
                 res.write(`
-                    <div class="mb-10 p-4 bg-slate-700 rounded-lg">
-                        <div class='p-5'>
-                            <div><h1 class='text-5xl'>Order ID: ${order.orderId}</h1></div>
-                            <div class='my-3 flex items-center justify-between'>
-                                <p>Placed by: ${order.firstName} ${order.lastName} (ID: ${order.customerId})</p>
-                                <p>Placed on: ${moment(order.orderDate).format('YYYY-MM-DD')}</p>
+                    <div class="mb-8 bg-slate-800 p-6 rounded-lg shadow-md">
+                        <div>
+                            <h2 class="text-2xl font-semibold ">Order ID: ${order.orderId}</h2>
+                            <p class="text-gray-400">Placed by: <span class="text-white">${order.firstName} ${order.lastName}</span> (ID: <span class='text-white'>${order.customerId}</span>)</p>
+                            <p class="text-gray-400">Placed on: <span class="text-white">${moment(order.orderDate).format('YYYY-MM-DD')}</span></p>
+                        </div>
+                        <div class="mt-6 bg-gray-700 p-4 rounded-md">
+                            <h3 class="text-xl font-medium text-blue-300 mb-4">Order Items</h3>
+                            <div class="grid grid-cols-5 gap-4 text-gray-300 font-semibold border-b border-gray-600 pb-2">
+                                <p>Product Name</p>
+                                <p>Product ID</p>
+                                <p>Quantity</p>
+                                <p>Price</p>
+                                <p>Subtotal</p>
                             </div>
-                            <div class='border-slate-400 border-2 p-5 mt-4 rounded-lg'>
-                                <div><h1 class='text-3xl mb-4'>Order Items</h1></div>
-                                <div class='grid grid-cols-5 gap-5 font-bold mb-2 items-center'>
-                                    <p>Product Name</p>
-                                    <p>Product ID</p>
-                                    <p>Quantity</p>
-                                    <p>Price</p>
-                                    <p>Total Price</p>
-                                </div>
                 `);
 
-                // Write each product in the order
                 productResults.recordset.forEach(product => {
                     res.write(`
-                        <div class='grid grid-cols-5 gap-5 items-center border-2 border-slate-600 my-2 rounded-lg py-2'>
+                        <div class="grid grid-cols-5 gap-4 text-gray-300 items-center mt-2 border-b border-gray-600 py-2">
                             <p>${product.productName}</p>
                             <p>${product.productId}</p>
                             <p>${product.quantity}</p>
                             <p>$${product.price.toFixed(2)}</p>
-                            <p class='text-green-500'>$${(product.quantity * product.price).toFixed(2)}</p>
+                            <p class="text-green-400">$${(product.quantity * product.price).toFixed(2)}</p>
                         </div>
                     `);
                 });
 
                 res.write(`
-                                <div>
-                                        <p class='font-bold text-right'>Total Amount</p> 
-                                        <p class='text-right text-green-500'>$${order.totalAmount.toFixed(2)}</p>
-                                </div>
+                            <div class="mt-4 text-right">
+                                <p class="text-lg font-bold text-gray-300">Total Amount:</p>
+                                <p class="text-2xl font-bold text-green-400">$${order.totalAmount.toFixed(2)}</p>
                             </div>
-                            
-                            
                         </div>
                     </div>
                 `);
             }
         } else {
-            res.write('<p>No orders found.</p>');
+            res.write('<p class="text-center text-gray-400">No orders found.</p>');
         }
 
         res.write('</div></body>');
