@@ -1,76 +1,7 @@
-// const express = require('express');
-// const router = express.Router();
-// const sql = require('mssql');
-
-// router.get('/', function (req, res, next) {
-//     res.setHeader('Content-Type', 'text/html');
-//     res.write("<title>PC8th Parts</title>")
-//     res.write('<link href="/style.css" rel="stylesheet">');
-//     res.write('<body class="text-white text-center bg-slate-600">');
-//     // Get the product name to search for
-//     //let name = req.query.productName;
-
-//     /** $name now contains the search string the user entered
-//      Use it to build a query and print out the results. **/
-//     (async function() {
-//         try {
-//             console.log("Connecting to the database...");
-//             let pool = await sql.connect(dbConfig);
-
-//             console.log("Connected. Reading data from the database...");
-//             let sqlQuery = "SELECT productName, productPrice FROM product";
-//             let results = await pool.request()
-//                 .query(sqlQuery);
-
-//             console.log("Data read. Printing results...");
-//             res.write("<table><tr><th>Name</th><th>Price</th></tr>");
-//             for (let i = 0; i < results.recordset.length; i++) {
-//                 let result = results.recordset[i];
-//                 res.write("<tr><td>" + result.ename + "</td><td>" + result.salary + "</td></tr>");
-//             }
-//             res.write("</table>");
-
-//             res.end();
-//         } catch(err) {
-//             console.dir(err);
-//             res.write(JSON.stringify(err));
-//             res.end();
-//         }
-//     })();
-
-//     /** Create and validate connection **/
-
-//     /** Print out the ResultSet **/
-
-//     /** 
-//     For each product create a link of the form
-//     addcart?id=<productId>&name=<productName>&price=<productPrice>
-//     **/
-
-//     /**
-//         Useful code for formatting currency:
-//         let num = 2.89999;
-//         num = num.toFixed(2);
-//     **/
-
-//     res.end();
-// });
-
-// module.exports = router;
-
-
-/*
-
-CHAT GPT: Testing queries are working
-
-
-*/
-
 const express = require('express');
 const router = express.Router();
 const sql = require('mssql');
 
-// Database configuration (Ensure it matches your dbConfig)
 const dbConfig = {
   server: 'cosc304_sqlserver',
   database: 'shop',
@@ -98,34 +29,117 @@ router.get('/', function (req, res, next) {
       console.log("Connecting to the database...");
       let pool = await sql.connect(dbConfig);
 
-      console.log("Connected. Reading data from the database...");
-      // Query to get all products: name and price
-      let sqlQuery = "SELECT productName, productPrice FROM product";
-      let results = await pool.request().query(sqlQuery);
+      // Get the search term from query parameters, this way we don't need to call another function
+      // For example, if the URL is http://yoursite.com/?search=mouse, then req.query.search would be "mouse"
+      // If no search parameter exists in the URL, req.query.search would be undefined  
+      const searchTerm = req.query.search || '';
 
-      console.log("Data read. Printing results...");
-      // make a nav bar 
+      let sqlQuery = `
+        SELECT p.productId, p.productName, p.productPrice, p.productDesc, c.categoryName 
+        FROM product p 
+        JOIN category c ON p.categoryId = c.categoryId
+        ${searchTerm ? "WHERE p.productName LIKE @searchTerm" : ""}
+        ORDER BY c.categoryName, p.productName
+      `;
+
+      let request = pool.request();
+      // Prevent SQL Injection
+      if (searchTerm) {
+        request.input('searchTerm', sql.NVarChar, `%${searchTerm}%`);
+      }
+      let results = await request.query(sqlQuery);
+
+
       res.write(`<nav class='flex justify-around items-center bg-slate-700 p-5 text-2xl'>
         <a class='opacity-50 p-3 hover:opacity-100 t200e ' href='/'>Home</a>
         <a class='opacity-100 p-3 hover:opacity-100 t200e' href='/listprod'>Product List</a>
         <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/listorder'>Order List</a>
         <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/showcart'>Show Cart</a>
-        </nav>`);
-      res.write("<h2 class='text-7xl my-5 font-light'>Product List</h2>");
-      res.write("<table border='1' cellpadding='5' cellspacing='0' style='margin: 20px auto;'>");
-      res.write("<tr><th>Product Name</th><th>Product Price</th></tr>");
+      </nav>`);
 
-      // Loop through results and display product name and price in a table row
-      for (let i = 0; i < results.recordset.length; i++) {
-        let result = results.recordset[i];
-        res.write("<tr><td>" + result.productName + "</td><td>" + result.productPrice.toFixed(2) + "</td></tr>");
+
+      res.write("<h2 class='text-7xl my-5 font-light'>Product List</h2>");
+
+      // We don't need to call another function to get the search term, we can just use the query parameter
+      res.write(`
+        <form method="get" class="my-6">
+          <input class='forms w-1/4 text-white outline-none focus:bg-slate-700 focus:border-slate-900 t200e' type="text" name="search" 
+            placeholder="Search for PC parts" 
+            value="${searchTerm}"
+          >
+          <button class='btn mx-2' type="submit">Search</button>
+          <a href="/listprod" class='btn-red mx-2 py-4'>Reset</a>
+        </form>
+      `);
+
+      // Show search results count if there is a search term
+      if (searchTerm) {
+        res.write(`
+          <div class="text-slate-300 mb-4">
+            Found ${results.recordset.length} product${results.recordset.length !== 1 ? 's' : ''} 
+            matching "${searchTerm}"
+          </div>
+        `);
       }
 
-      res.write("</table>");
+      // Container for the grid
+      res.write(`
+        <div class="container mx-auto px-4 py-8">
+          <div class="grid grid-cols-4 gap-4 mb-4 bg-slate-800 p-4 rounded-lg font-bold">
+            <div>Category</div>
+            <div>Product Name</div>
+            <div>Price</div>
+            <div>Add to Cart</div>
+          </div>
+          
+          <!-- Grid Body -->
+          <div class="space-y-2">
+      `);
+
+      // Group products by category for better organization
+      let currentCategory = '';
+
+      for (let product of results.recordset) {
+        if (currentCategory !== product.categoryName) {
+          currentCategory = product.categoryName;
+          res.write(`
+            <div class="text-left text-xl font-semibold mt-6 mb-2 text-slate-300">
+              ${currentCategory}
+            </div>
+          `);
+        }
+
+        res.write(`
+          <div class="grid grid-cols-4 gap-4 items-center bg-slate-700 p-4 rounded-lg hover:bg-slate-800 t200e">
+            <div class="text-left text-slate-300">${product.categoryName}</div>
+            <div class="text-left">
+              <div class="font-medium">${product.productName}</div>
+              <div class="text-sm text-slate-300">${product.productDesc.substring(0, 50)}${product.productDesc.length > 50 ? '...' : ''}</div>
+            </div>
+            <div class="text-green-400 font-medium">$${product.productPrice.toFixed(2)}</div>
+            <div>
+              <a href='/showcart' class="btn">
+                Add to Cart
+              </a>
+            </div>
+          </div>
+        `);
+      }
+
+      res.write(`
+          </div>
+        </div>
+      `);
+
+      res.write("</body>");
       res.end();
     } catch (err) {
       console.dir(err);
-      res.write("<h3>Error: " + JSON.stringify(err) + "</h3>");
+      res.write(`
+        <div class="p-4 bg-red-500 text-white">
+          <h3>Error: ${JSON.stringify(err)}</h3>
+        </div>
+      `);
       res.end();
     }
   })();
