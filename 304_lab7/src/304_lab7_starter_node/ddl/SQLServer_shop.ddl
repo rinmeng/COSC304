@@ -226,41 +226,41 @@ go
 
 -- Order 1 can be shipped as have enough inventory
 DECLARE @orderId int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (1, '2019-10-15 10:25:55', 1399.96)
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (1, '2019-10-15 10:25:55', 2389.96)
 SELECT @orderId = @@IDENTITY
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 1, 1, 799.99)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 5, 2, 459.98)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 10, 1, 139.99);
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 1, 1, 589.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 5, 2, 399.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 10, 1, 999.99);
 go
 
 DECLARE @orderId2 int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2019-10-16 18:00:00', 1499.95)
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2019-10-16 18:00:00', 1599.95)
 SELECT @orderId2 = @@IDENTITY
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId2, 19, 5, 299.99);
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId2, 19, 5, 319.99);
 go
 
 -- Order 3 cannot be shipped as do not have enough inventory for item 7
 DECLARE @orderId3 int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (3, '2019-10-15 3:30:22', 539.95)
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (3, '2019-10-15 3:30:22', 459.98)
 SELECT @orderId3 = @@IDENTITY
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId3, 6, 2, 149.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId3, 6, 2, 229.99)
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId3, 7, 3, 79.99);
 go
 
 DECLARE @orderId4 int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2019-10-17 05:45:11', 7639.84)
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2019-10-17 05:45:11', 2769.84)
 SELECT @orderId4 = @@IDENTITY
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId4, 3, 4, 1599.96)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId4, 8, 3, 4799.97)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId4, 13, 3, 539.97)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId4, 28, 2, 179.98)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId4, 29, 4, 519.96);
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId4, 3, 4, 409.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId4, 8, 3, 79.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId4, 13, 3, 89.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId4, 28, 2, 129.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId4, 29, 4, 89.99);
 go
 
 DECLARE @orderId5 int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (5, '2019-10-15 10:25:55', 2059.91)
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (5, '2019-10-15 10:25:55', 3139.91)
 SELECT @orderId5 = @@IDENTITY
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId5, 5, 4, 919.96)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId5, 19, 2, 599.98)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId5, 20, 3, 539.97);
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId5, 5, 4, 399.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId5, 19, 2, 319.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId5, 20, 3, 299.99);
 go
