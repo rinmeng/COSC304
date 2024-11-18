@@ -172,26 +172,31 @@ INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES 
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('AMD Ryzen 7 7800X', 1, '8-core, 16-thread processor', 399.99);
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('ASUS ROG Strix Z690-E', 2, 'Intel Z690 chipset motherboard', 399.99);
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('MSI MPG Z590 Gaming Edge WiFi', 2, 'Intel Z590 chipset motherboard with Wi-Fi', 229.99);
+
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('Corsair Vengeance LPX 32GB (2x16GB) DDR4-3200', 3, '32GB RAM kit for high-performance gaming', 149.99);
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('G.Skill Ripjaws V 16GB (2x8GB) DDR4-3600', 3, '16GB RAM kit for high-speed performance', 79.99);
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('NVIDIA GeForce RTX 4090', 4, '24GB GDDR6X VRAM, the flagship GPU from NVIDIA', 1599.99);
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('AMD Radeon RX 7900 XTX', 4, '24GB GDDR6, high-performance GPU from AMD', 999.99);
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('EVGA SuperNOVA 850 G5', 5, '850W power supply, 80+ Gold certified', 139.99);
+
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('Corsair RM750x', 5, '750W power supply, fully modular, 80+ Gold certified', 109.99);
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('Noctua NH-D15', 6, 'Dual tower CPU cooler with dual fan setup', 89.99);
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('Corsair iCUE H150i Elite Capellix', 6, '360mm AIO liquid cooler with RGB fans', 179.99);
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('Samsung 970 EVO Plus 1TB', 7, 'M.2 NVMe SSD for fast storage', 109.99);
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('Western Digital Black SN850X 2TB', 7, 'M.2 NVMe Gen4 SSD for high-speed gaming', 249.99);
+
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('NZXT H510', 8, 'Mid-tower ATX case with tempered glass panel', 79.99);
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('Fractal Design Meshify C', 8, 'Compact mid-tower ATX case with high airflow', 89.99);
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('Intel Core i5-13600K', 1, '14-core, 20-thread processor', 319.99);
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('AMD Ryzen 5 7600X', 1, '6-core, 12-thread processor', 299.99);
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('MSI MAG B550 TOMAHAWK WIFI', 2, 'AMD B550 chipset motherboard with Wi-Fi', 179.99);
+
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('Gigabyte AORUS Z490 Elite', 2, 'Intel Z490 chipset motherboard with advanced cooling', 219.99);
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('HyperX Fury 16GB (2x8GB) DDR4-3200', 3, '16GB RAM kit for general-purpose use', 64.99);
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('Corsair Dominator Platinum RGB 32GB (2x16GB) DDR4-3600', 3, 'High-performance 32GB RAM kit with RGB lighting', 189.99);
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('ASUS TUF Gaming GeForce RTX 3070', 4, '8GB GDDR6 VRAM, NVIDIA Ampere architecture', 599.99);
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('NVIDIA GeForce RTX 3060 Ti', 4, '8GB GDDR6 VRAM, great for 1440p gaming', 399.99);
+
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('Thermaltake Toughpower GF1 750W', 5, '750W power supply, 80+ Gold certified', 109.99);
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('Cooler Master MWE Gold 850W', 5, '850W power supply, fully modular, 80+ Gold certified', 129.99);
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('be quiet! Dark Rock Pro 4', 6, 'Premium air cooler with two silent fans', 89.99);
@@ -203,7 +208,7 @@ INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (1,
 INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (2, 1, 10, 19);
 INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (3, 1, 3, 10);
 INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (4, 1, 2, 22);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (5, 1, 6, 21.35);
+INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (5, 1, 6, 21);
 INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (6, 1, 3, 25);
 INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (7, 1, 1, 30);
 INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (8, 1, 0, 40);
@@ -221,43 +226,41 @@ go
 
 -- Order 1 can be shipped as have enough inventory
 DECLARE @orderId int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (1, '2019-10-15 10:25:55', 91.70)
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (1, '2019-10-15 10:25:55', 1399.96)
 SELECT @orderId = @@IDENTITY
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 1, 1, 18)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 5, 2, 21.35)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 10, 1, 31);
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 1, 1, 799.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 5, 2, 459.98)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 10, 1, 139.99);
 go
 
 DECLARE @orderId2 int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2019-10-16 18:00:00', 106.75)
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2019-10-16 18:00:00', 1499.95)
 SELECT @orderId2 = @@IDENTITY
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId2, 5, 5, 21.35);
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId2, 19, 5, 299.99);
 go
 
 -- Order 3 cannot be shipped as do not have enough inventory for item 7
 DECLARE @orderId3 int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (3, '2019-10-15 3:30:22', 140)
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (3, '2019-10-15 3:30:22', 539.95)
 SELECT @orderId3 = @@IDENTITY
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId3, 6, 2, 25)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId3, 7, 3, 30);
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId3, 6, 2, 149.99)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId3, 7, 3, 79.99);
 go
 
 DECLARE @orderId4 int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2019-10-17 05:45:11', 327.85)
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2019-10-17 05:45:11', 7639.84)
 SELECT @orderId4 = @@IDENTITY
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId4, 3, 4, 10)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId4, 8, 3, 40)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId4, 13, 3, 23.25)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId4, 28, 2, 21.05)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId4, 29, 4, 14);
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId4, 3, 4, 1599.96)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId4, 8, 3, 4799.97)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId4, 13, 3, 539.97)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId4, 28, 2, 179.98)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId4, 29, 4, 519.96);
 go
 
 DECLARE @orderId5 int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (5, '2019-10-15 10:25:55', 277.40)
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (5, '2019-10-15 10:25:55', 2059.91)
 SELECT @orderId5 = @@IDENTITY
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId5, 5, 4, 21.35)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId5, 19, 2, 81)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId5, 20, 3, 10);
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId5, 5, 4, 919.96)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId5, 19, 2, 599.98)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId5, 20, 3, 539.97);
 go
-
-
