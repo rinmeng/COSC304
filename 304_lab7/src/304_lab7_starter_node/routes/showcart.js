@@ -16,7 +16,7 @@ router.get('/', function (req, res, next) {
         </div>
     </nav>`);
 
-    if (req.session.productList) {
+    if (req.session.productList && req.session.productList.filter(item => item).length > 0) {
         productList = req.session.productList;
         res.write("<h1 class='text-4xl my-8 font-light'>Your Shopping Cart</h1>");
 
