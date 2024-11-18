@@ -10,11 +10,13 @@ router.get('/', async function (req, res, next) {
         res.write('<link href="/style.css" rel="stylesheet">');
         res.write('<body class="text-white bg-slate-600">');
         res.write(`<nav class='flex justify-around items-center bg-slate-700 p-5 text-2xl'>
-        <a class='opacity-50 p-3 hover:opacity-100 t200e ' href='/'>Home</a>
-        <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/listprod'>Product List</a>
-        <a class='opacity-100 p-3 hover:opacity-100 t200e' href='/listorder'>Order List</a>
-        <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/showcart'>Show Cart</a>
-        </nav>`);
+        <a class='text-center opacity-100 p-3 hover:opacity-100 t200e text-6xl w-3/4' href='/'>PC8th</a>
+        <div class="flex justify-center w-full">
+            <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/listprod'>Product List</a>
+            <a class='opacity-100 p-3 hover:opacity-100 t200e' href='/listorder'>Order List</a>
+            <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/showcart'>My Cart</a>
+        </div>
+    </nav>`);
         res.write('<h1 class="text-5xl font-bold text-center my-8 ">Order List</h1>');
 
         let pool = await sql.connect(dbConfig);
