@@ -21,7 +21,7 @@
 //             let sqlQuery = "SELECT productName, productPrice FROM product";
 //             let results = await pool.request()
 //                 .query(sqlQuery);
-            
+
 //             console.log("Data read. Printing results...");
 //             res.write("<table><tr><th>Name</th><th>Price</th></tr>");
 //             for (let i = 0; i < results.recordset.length; i++) {
@@ -88,40 +88,40 @@ const dbConfig = {
 };
 
 router.get('/', function (req, res, next) {
-    res.setHeader('Content-Type', 'text/html');
-    res.write("<title>PC8th Parts</title>");
-    res.write('<link href="/style.css" rel="stylesheet">');
-    res.write('<body class="text-white text-center bg-slate-600">');
+  res.setHeader('Content-Type', 'text/html');
+  res.write("<title>PC8th Parts</title>");
+  res.write('<link href="/style.css" rel="stylesheet">');
+  res.write('<body class="text-white text-center bg-slate-600">');
 
-    (async function() {
-        try {
-            console.log("Connecting to the database...");
-            let pool = await sql.connect(dbConfig);
+  (async function () {
+    try {
+      console.log("Connecting to the database...");
+      let pool = await sql.connect(dbConfig);
 
-            console.log("Connected. Reading data from the database...");
-            // Query to get all products: name and price
-            let sqlQuery = "SELECT productName, productPrice FROM product";
-            let results = await pool.request().query(sqlQuery);
-            
-            console.log("Data read. Printing results...");
-            res.write("<h2>Product List</h2>");
-            res.write("<table border='1' cellpadding='5' cellspacing='0' style='margin: 20px auto;'>");
-            res.write("<tr><th>Product Name</th><th>Product Price</th></tr>");
+      console.log("Connected. Reading data from the database...");
+      // Query to get all products: name and price
+      let sqlQuery = "SELECT productName, productPrice FROM product";
+      let results = await pool.request().query(sqlQuery);
 
-            // Loop through results and display product name and price in a table row
-            for (let i = 0; i < results.recordset.length; i++) {
-                let result = results.recordset[i];
-                res.write("<tr><td>" + result.productName + "</td><td>" + result.productPrice.toFixed(2) + "</td></tr>");
-            }
+      console.log("Data read. Printing results...");
+      res.write("<h2 class='text-7xl my-5 font-light'>Product List</h2>");
+      res.write("<table border='1' cellpadding='5' cellspacing='0' style='margin: 20px auto;'>");
+      res.write("<tr><th>Product Name</th><th>Product Price</th></tr>");
 
-            res.write("</table>");
-            res.end();
-        } catch(err) {
-            console.dir(err);
-            res.write("<h3>Error: " + JSON.stringify(err) + "</h3>");
-            res.end();
-        }
-    })();
+      // Loop through results and display product name and price in a table row
+      for (let i = 0; i < results.recordset.length; i++) {
+        let result = results.recordset[i];
+        res.write("<tr><td>" + result.productName + "</td><td>" + result.productPrice.toFixed(2) + "</td></tr>");
+      }
+
+      res.write("</table>");
+      res.end();
+    } catch (err) {
+      console.dir(err);
+      res.write("<h3>Error: " + JSON.stringify(err) + "</h3>");
+      res.end();
+    }
+  })();
 });
 
 module.exports = router;

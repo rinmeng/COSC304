@@ -152,6 +152,7 @@ INSERT INTO category(categoryName) VALUES ('Power Supplies');
 INSERT INTO category(categoryName) VALUES ('Cooling');
 INSERT INTO category(categoryName) VALUES ('Storage');
 INSERT INTO category(categoryName) VALUES ('Cases');
+go
 
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('Intel Core i9-13900K', 1, '12-core, 24-thread processor', 589.99);
 -- Categories 
@@ -163,6 +164,7 @@ INSERT INTO category (categoryName) VALUES ('Power Supplies');
 INSERT INTO category (categoryName) VALUES ('Cooling');
 INSERT INTO category (categoryName) VALUES ('Storage');
 INSERT INTO category (categoryName) VALUES ('Cases');
+go
 
 -- Products
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('AMD Ryzen 9 7950X', 1, '16-core, 32-thread processor', 799.99);
@@ -194,6 +196,7 @@ INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES 
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('Cooler Master MWE Gold 850W', 5, '850W power supply, fully modular, 80+ Gold certified', 129.99);
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('be quiet! Dark Rock Pro 4', 6, 'Premium air cooler with two silent fans', 89.99);
 INSERT INTO product (productName, categoryId, productDesc, productPrice) VALUES ('Corsair iCUE H100i RGB Pro XT', 6, '240mm AIO liquid cooler with RGB lighting', 129.99);
+go
 
 INSERT INTO warehouse(warehouseName) VALUES ('Main warehouse');
 INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (1, 1, 5, 18);
@@ -206,12 +209,15 @@ INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (7,
 INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (8, 1, 0, 40);
 INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (9, 1, 2, 97);
 INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (10, 1, 3, 31);
+go
 
 INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Arnold', 'Anderson', 'a.anderson@gmail.com', '204-111-2222', '103 AnyWhere Street', 'Winnipeg', 'MB', 'R3X 45T', 'Canada', 'arnold' , 'test');
 INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Bobby', 'Brown', 'bobby.brown@hotmail.ca', '572-342-8911', '222 Bush Avenue', 'Boston', 'MA', '22222', 'United States', 'bobby' , 'bobby');
 INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Candace', 'Cole', 'cole@charity.org', '333-444-5555', '333 Central Crescent', 'Chicago', 'IL', '33333', 'United States', 'candace' , 'password');
 INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Darren', 'Doe', 'oe@doe.com', '250-807-2222', '444 Dover Lane', 'Kelowna', 'BC', 'V1V 2X9', 'Canada', 'darren' , 'pw');
 INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Elizabeth', 'Elliott', 'engel@uiowa.edu', '555-666-7777', '555 Everwood Street', 'Iowa City', 'IA', '52241', 'United States', 'beth' , 'test');
+go
+
 
 -- Order 1 can be shipped as have enough inventory
 DECLARE @orderId int
@@ -220,11 +226,13 @@ SELECT @orderId = @@IDENTITY
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 1, 1, 18)
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 5, 2, 21.35)
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 10, 1, 31);
+go
 
 DECLARE @orderId2 int
 INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2019-10-16 18:00:00', 106.75)
 SELECT @orderId2 = @@IDENTITY
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId2, 5, 5, 21.35);
+go
 
 -- Order 3 cannot be shipped as do not have enough inventory for item 7
 DECLARE @orderId3 int
@@ -232,6 +240,7 @@ INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (3, '2019-1
 SELECT @orderId3 = @@IDENTITY
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId3, 6, 2, 25)
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId3, 7, 3, 30);
+go
 
 DECLARE @orderId4 int
 INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2019-10-17 05:45:11', 327.85)
@@ -241,6 +250,7 @@ INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId4
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId4, 13, 3, 23.25)
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId4, 28, 2, 21.05)
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId4, 29, 4, 14);
+go
 
 DECLARE @orderId5 int
 INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (5, '2019-10-15 10:25:55', 277.40)
@@ -248,5 +258,6 @@ SELECT @orderId5 = @@IDENTITY
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId5, 5, 4, 21.35)
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId5, 19, 2, 81)
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId5, 20, 3, 10);
+go
 
 
