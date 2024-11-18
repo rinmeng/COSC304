@@ -9,6 +9,12 @@ router.get('/', async function (req, res, next) {
         res.write('<title>PC8th Order List</title>');
         res.write('<link href="/style.css" rel="stylesheet">');
         res.write('<body class="text-white text-center bg-slate-600">');
+        res.write(`<nav class='flex justify-around items-center bg-slate-700 p-5 text-2xl'>
+        <a class='opacity-50 p-3 hover:opacity-100 t200e ' href='/'>Home</a>
+        <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/listprod'>Product List</a>
+        <a class='opacity-100 p-3 hover:opacity-100 t200e' href='/listorder'>Order List</a>
+        <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/showcart'>Show Cart</a>
+        </nav>`);
         res.write('<h1 class="text-7xl my-5 font-light">Order List</h1>');
 
         let pool = await sql.connect(dbConfig);

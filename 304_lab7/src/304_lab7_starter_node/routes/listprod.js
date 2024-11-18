@@ -104,6 +104,13 @@ router.get('/', function (req, res, next) {
       let results = await pool.request().query(sqlQuery);
 
       console.log("Data read. Printing results...");
+      // make a nav bar 
+      res.write(`<nav class='flex justify-around items-center bg-slate-700 p-5 text-2xl'>
+        <a class='opacity-50 p-3 hover:opacity-100 t200e ' href='/'>Home</a>
+        <a class='opacity-100 p-3 hover:opacity-100 t200e' href='/listprod'>Product List</a>
+        <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/listorder'>Order List</a>
+        <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/showcart'>Show Cart</a>
+        </nav>`);
       res.write("<h2 class='text-7xl my-5 font-light'>Product List</h2>");
       res.write("<table border='1' cellpadding='5' cellspacing='0' style='margin: 20px auto;'>");
       res.write("<tr><th>Product Name</th><th>Product Price</th></tr>");
