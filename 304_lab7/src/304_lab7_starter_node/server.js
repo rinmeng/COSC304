@@ -20,7 +20,7 @@ app.use(express.static('public'));
 // CHECK loaddata.js for more info 
 dbConfig = {
   server: 'cosc304_sqlserver',
-  database: 'orders',
+  database: 'shop',
   authentication: {
     type: 'default',
     options: {
@@ -31,7 +31,7 @@ dbConfig = {
   options: {
     encrypt: false,
     enableArithAbort: false,
-    database: 'orders'
+    database: 'shop'
   }
 }
 
