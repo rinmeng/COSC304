@@ -24,7 +24,14 @@ router.get("/", async function (req, res, next) {
   res.write("<title>PC8th Order Processing</title>");
   res.write('<link href="/style.css" rel="stylesheet">');
   res.write('<body class="bg-slate-600">');
-
+  res.write(`<nav class='flex justify-around items-center bg-slate-700 p-5 text-2xl text-white'>
+        <a class='text-center opacity-100 p-3 hover:opacity-100 t200e text-6xl w-3/4' href='/'>PC8th</a>
+        <div class="flex justify-center w-full">
+            <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/listprod'>Product List</a>
+            <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/listorder'>Order List</a>
+            <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/showcart'>My Cart</a>
+        </div>
+    </nav>`);
   let productList = req.session.productList || [];
 
   if (!req.query.customerId || isNaN(req.query.customerId)) {
@@ -136,12 +143,12 @@ router.get("/", async function (req, res, next) {
       );
 
     // Display order summary
-      res.write(`
-        <div class="max-w-md mx-auto bg-white shadow-md rounded-lg p-6 text-gray-800">
+    res.write(`
+        <div class="my-10 max-w-md mx-auto bg-white shadow-md rounded-lg p-6 text-gray-800">
           <h1 class="text-2xl font-bold text-center mb-4">Order Receipt</h1>
           <div class="border-b pb-4 mb-4">
             <p class="text-sm"><b>Order Date:</b> ${orderDate}</p>
-            <p class="text-sm"><b>Total Amount:</b> $${totalAmount.toFixed(2)}</p>
+            
           </div>
       
           <div class="mb-4">
@@ -155,17 +162,14 @@ router.get("/", async function (req, res, next) {
                 </tr>
               </thead>
               <tbody>
-                ${validProducts
-                  .map(
-                    (product) => `
+                ${validProducts.map((product) => `
                     <tr>
                       <td class="py-1 border-b">${product.name}</td>
                       <td class="py-1 text-right border-b">${product.quantity}</td>
                       <td class="py-1 text-right border-b">$${product.price}</td>
                     </tr>
-                  `
-                  )
-                  .join("")}
+                  `).join("")}
+    
               </tbody>
             </table>
           </div>
@@ -173,6 +177,7 @@ router.get("/", async function (req, res, next) {
           <div class="border-t pt-4">
             <p class="text-sm"><b>Order Reference Number:</b> ${orderId}</p>
             <p class="text-sm"><b>Shipping to:</b> ${customerName} (${customerId})</p>
+            <p class="text-sm"><b>Total Amount:</b> $${totalAmount.toFixed(2)}</p>
           </div>
       
           <div class="text-center mt-6">
@@ -181,7 +186,7 @@ router.get("/", async function (req, res, next) {
           </div>
         </div>
       `);
-      
+
 
     // Clear shopping cart (session variable)
 

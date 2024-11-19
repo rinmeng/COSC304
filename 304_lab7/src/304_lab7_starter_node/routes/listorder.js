@@ -17,7 +17,7 @@ router.get('/', async function (req, res, next) {
             <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/showcart'>My Cart</a>
         </div>
     </nav>`);
-        res.write('<h1 class="text-5xl font-bold text-center my-8 ">Order List</h1>');
+        res.write('<h1 class="text-7xl my-5 font-light">Order List</h1>');
 
         let pool = await sql.connect(dbConfig);
         console.log('Connection successful! Executing query...');
