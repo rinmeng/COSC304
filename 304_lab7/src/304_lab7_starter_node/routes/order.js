@@ -204,7 +204,7 @@ router.get("/", async function (req, res, next) {
         // Clear shopping cart (session variable)
 
         if (success) {
-           //req.session.productList = [];
+           req.session.productList = [];
         }
     } catch (err) {
         console.log(err);
