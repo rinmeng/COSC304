@@ -58,7 +58,7 @@ router.get("/", async function (req, res, next) {
             .request()
             .input("userId", sql.VarChar, userId)
             .query(
-                "SELECT firstName, lastName, password FROM Customer WHERE userId = @userId"
+                "SELECT firstName, lastName, password, customerId FROM Customer WHERE userid = @userId"
             );
 
         // Invalid user ID
@@ -83,14 +83,11 @@ router.get("/", async function (req, res, next) {
         }
 
         // Getting row
-        const { firstName, lastName, password } = userResult.recordset[0];
+        const { firstName, lastName, password, customerId } = userResult.recordset[0];
         console.log(userResult.recordset[0]);
         userName = `${firstName} ${lastName}`;
-
-        console.log("Password1", inputPassword, password);
         // Validate password
         if (inputPassword !== password) {
-            console.log("Password2", inputPassword, password);
             res.write(`
                 <div class="p-4 bg-red-500 text-white">
                 <h3>Error: Incorrect password</h3>
@@ -113,11 +110,11 @@ router.get("/", async function (req, res, next) {
         console.log("Product List:", validProducts);
         const orderInsertResult = await pool
             .request()
-            .input("userId", sql.VarChar, userId)
+            .input("customerId", sql.Int, customerId)
             .input("orderDate", sql.VarChar, orderDate)
             .input("totalAmount", sql.Decimal, totalAmount)
             .query(
-                "INSERT INTO OrderSummary (userId, orderDate, totalAmount) OUTPUT INSERTED.orderId VALUES (@userId, @orderDate, @totalAmount)"
+                "INSERT INTO OrderSummary (customerId, orderDate, totalAmount) OUTPUT INSERTED.orderId VALUES (@customerId, @orderDate, @totalAmount)"
             );
         const orderId = orderInsertResult.recordset[0].orderId;
 
@@ -166,7 +163,7 @@ router.get("/", async function (req, res, next) {
           <div class="border-b pb-4 mb-4">
             <p class="text-sm"><b>Order Date:</b> ${orderDate}</p>
             <p class="text-sm"><b>Order Reference Number:</b> ${orderId}</p>
-            <p class="text-sm"><b>Shipping to:</b> ${userName} (${userId})</p>
+            <p class="text-sm"><b>Shipping to:</b> ${userName} (ID: ${customerId})</p>
           </div>
       
           <div class="my-4">
