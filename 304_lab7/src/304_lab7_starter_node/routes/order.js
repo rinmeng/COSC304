@@ -44,17 +44,8 @@ router.get("/", async function (req, res, next) {
         return;
     }
 
-    if (productList.length === 0) {
-        res.write(`
-      <div class="p-4 bg-red-500 text-white">
-        <h3>Error: Shopping cart is empty</h3>
-      </div>
-    `);
-        res.end();
-        return;
-    }
-
     const customerId = parseInt(req.query.customerId);
+    const inputPassword = req.query.password;
     let customerName = "";
     let success = true;
     let pool;
@@ -67,22 +58,48 @@ router.get("/", async function (req, res, next) {
             .request()
             .input("customerId", sql.Int, customerId)
             .query(
-                "SELECT firstName, lastName FROM Customer WHERE customerId = @customerId"
+                "SELECT firstName, lastName, password FROM Customer WHERE customerId = @customerId"
             );
 
+        // Invalid customer ID
         if (customerResult.recordset.length === 0) {
             res.write(`
-    <div class="p-4 bg-red-500 text-white">
-      <h3>Error: Customer ID does not exist</h3>
-    </div>
-  `);
+                <div class="p-4 bg-red-500 text-white">
+                <h3>Error: Customer ID does not exist</h3>
+                </div>
+            `);
             res.end();
             return;
         }
 
-        // Concatenate firstName and lastName to form customerName
-        const { firstName, lastName } = customerResult.recordset[0];
+        if (productList.length === 0) {
+            res.write(`
+          <div class="p-4 bg-red-500 text-white">
+            <h3>Error: Shopping cart is empty</h3>
+          </div>
+        `);
+            res.end();
+            return;
+        }
+
+        // Getting row
+        const { firstName, lastName, password } = customerResult.recordset[0];
+        console.log(customerResult.recordset[0]);
         customerName = `${firstName} ${lastName}`;
+
+        console.log("Password1", inputPassword, password);
+        // Validate password
+        if (inputPassword !== password) {
+            console.log("Password2", inputPassword, password);
+            res.write(`
+                <div class="p-4 bg-red-500 text-white">
+                <h3>Error: Incorrect password</h3>
+                </div>
+            `);
+
+            res.end();
+            return;
+        }
 
         // Insert into OrderSummary table and get auto-generated orderId
         const orderDate = moment().format("YYYY-MM-DD HH:mm:ss");
@@ -187,7 +204,7 @@ router.get("/", async function (req, res, next) {
         // Clear shopping cart (session variable)
 
         if (success) {
-            req.session.productList = [];
+           //req.session.productList = [];
         }
     } catch (err) {
         console.log(err);
