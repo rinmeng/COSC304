@@ -22,6 +22,17 @@ router.get('/', function (req, res, next) {
                             required
                         >
                     </div>
+                    <div class="flex flex-col space-y-2">
+                        <label for="password" class="text-lg font-medium text-gray-300">Password:</label>
+                        <input 
+                            type="password" 
+                            name="password" 
+                            id="password" 
+                            placeholder="Enter your password" 
+                            class="w-full p-3 forms text-white outline-none focus:bg-gray-600 focus:border-slate-900 t200e"
+                            required
+                        >
+                    </div>
                     <div class="flex justify-between space-x-4">
                         <a href="/showcart" class="w-full text-center bg-gray-500 text-lg text-white font-semibold py-3 rounded-md hover:bg-gray-600 focus:ring-2 focus:ring-gray-400 focus:outline-none transition">
                             &larr; Cancel
