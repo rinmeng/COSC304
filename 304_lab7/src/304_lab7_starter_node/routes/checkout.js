@@ -9,15 +9,15 @@ router.get('/', function (req, res, next) {
         <body class="min-h-screen bg-slate-600 flex items-center justify-center text-white">
             <div class="w-1/3 bg-slate-700 p-8 rounded-lg shadow-lg">
                 <h1 class="text-4xl font-bold  text-center mb-6">Checkout</h1>
-                <p class="text-lg text-gray-300 text-center mb-8">Enter your Customer ID to complete the transaction</p>
+                <p class="text-lg text-gray-300 text-center mb-8">Enter your User ID to complete the transaction</p>
                 <form class="space-y-6" method="get" action="order">
                     <div class="flex flex-col space-y-2">
-                        <label for="customerId" class="text-lg font-medium text-gray-300">Customer ID:</label>
+                        <label for="userId" class="text-lg font-medium text-gray-300">User ID:</label>
                         <input 
                             type="text" 
-                            name="customerId" 
-                            id="customerId" 
-                            placeholder="Enter your Customer ID" 
+                            name="userId" 
+                            id="userId" 
+                            placeholder="Enter your User ID" 
                             class="w-full p-3 forms text-white outline-none focus:bg-gray-600 focus:border-slate-900 t200e"
                             required
                         >
