@@ -1,7 +1,7 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const session = require('express-session')
-const bodyParser  = require('body-parser');
+const bodyParser = require('body-parser');
 
 let index = require('./routes/index');
 let loadData = require('./routes/loaddata');
@@ -21,25 +21,26 @@ let customer = require('./routes/customer');
 let ship = require('./routes/ship');
 
 const app = express();
+app.use(express.static('public'));
 
 // Enable parsing of requests for POST requests
 app.use(express.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // This DB Config is accessible globally
-dbConfig = {    
+dbConfig = {
   server: 'cosc304_sqlserver',
   database: 'orders',
   authentication: {
-      type: 'default',
-      options: {
-          userName: 'sa', 
-          password: '304#sa#pw'
-      }
-  },   
-  options: {      
-    encrypt: false,      
-    enableArithAbort:false,
+    type: 'default',
+    options: {
+      userName: 'sa',
+      password: '304#sa#pw'
+    }
+  },
+  options: {
+    encrypt: false,
+    enableArithAbort: false,
     database: 'orders'
   }
 }
