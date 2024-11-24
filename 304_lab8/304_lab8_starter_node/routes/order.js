@@ -31,6 +31,9 @@ router.get("/", async function (req, res, next) {
             <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/listorder'>Order List</a>
             <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/showcart'>My Cart</a>
         </div>
+        <div>
+            <a class='opacity-50 p-3 hover:opacity-100 t200e px-10' href='/login'>Login</a>
+        </div>
     </nav>`);
     let productList = req.session.productList || [];
 
@@ -201,7 +204,7 @@ router.get("/", async function (req, res, next) {
         // Clear shopping cart (session variable)
 
         if (success) {
-           //req.session.productList = [];
+            //req.session.productList = [];
         }
     } catch (err) {
         console.log(err);

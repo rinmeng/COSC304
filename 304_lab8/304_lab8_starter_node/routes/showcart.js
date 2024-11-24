@@ -14,7 +14,11 @@ router.get('/', function (req, res, next) {
             <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/listorder'>Order List</a>
             <a class='opacity-100 p-3 hover:opacity-100 t200e' href='/showcart'>My Cart</a>
         </div>
+        <div>
+            <a class='opacity-50 p-3 hover:opacity-100 t200e px-10' href='/login'>Login</a>
+        </div>
     </nav>`);
+
 
     if (req.session.productList && req.session.productList.filter(item => item).length > 0) {
         productList = req.session.productList;

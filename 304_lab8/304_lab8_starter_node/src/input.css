@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes fallIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 @layer components {
   .glass-slate {
     @apply bg-slate-800 backdrop-filter backdrop-blur-xl shadow-lg bg-opacity-25;
@@ -13,6 +33,9 @@
 
   .glass-amber {
     @apply bg-amber-800 backdrop-filter backdrop-blur-lg shadow-lg bg-opacity-50;
+  }
+
+  .index-img {
   }
 
   .mp5 {

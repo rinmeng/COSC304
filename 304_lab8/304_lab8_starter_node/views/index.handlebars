@@ -1,20 +1,68 @@
 <div>
-    <nav class='flex justify-around items-center bg-slate-700 p-5 text-2xl'>
-        <a class='opacity-100 p-3 hover:opacity-100 t200e text-6xl w-3/4' href='/'>PC8th</a>
+    <nav class="fixed z-10 w-full flex justify-around items-center bg-slate-700 p-5 text-2xl">
+        <!-- Logo -->
+        <a class="opacity-100 p-3 hover:opacity-100 t200e text-6xl w-3/4" href="/">PC8th</a>
+
+        <!-- Navigation Links -->
         <div class="flex justify-center w-full">
-            <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/listprod'>Product List</a>
-            <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/listorder'>Order List</a>
-            <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/showcart'>My Cart</a>
+            <!-- Product List -->
+            <div class="relative group p-3">
+                <a class="opacity-50 hover:opacity-100 t200e" href="/listprod">Product List</a>
+                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
+                </div>
+            </div>
+
+            <!-- Order List -->
+            <div class="relative group p-3">
+                <a class="opacity-50 hover:opacity-100 t200e" href="/listorder">Order List</a>
+                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
+                </div>
+            </div>
+
+            <!-- My Cart -->
+            <div class="relative group p-3">
+                <a class="opacity-50 hover:opacity-100 t200e" href="/showcart">My Cart</a>
+                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
+                </div>
+            </div>
+        </div>
+
+        <!-- Login -->
+        <div>
+            <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
         </div>
     </nav>
-    <h1 class="text-7xl my-5 font-light">Welcome to PC8th Computer Parts</h1>
 
-    <div class="flex space-x-5 justify-center text-2xl">
-        <a href="/listprod">
-            <h1 class="btn">Browse Products</h1>
-        </a>
-        <a href="/listorder">
-            <h1 class=" btn">List All Orders</h1>
-        </a>
+
+    <div class="relative w-full">
+        <div class="relative h-screen">
+            <img src="/img/rtx5000.jpg" class="absolute w-full h-full object-cover brightness-50 -z-10" alt="RTX 5000">
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                <h1 class="font-thin text-white text-7xl text-center">
+                    <span class="block opacity-0 animate-fall-1">
+                        Shop the all new RTX 5090.
+                    </span>
+                    <span class="block opacity-0 animate-fall-2">
+                        The most powerful GPU in the world.
+                    </span>
+                    <span class="block opacity-0 animate-fall-3">
+                        Now available at PC8th.
+                    </span>
+                </h1>
+                <a href="/listprod"
+                    class="mt-8 relative group font-bold bg-slate-800 p-5 bg-opacity-80 hover:bg-opacity-100 t200e">
+                    <div class="flex items-center text-white">
+                        <span class="text-2xl">Browse Products</span>
+                        <span class="overflow-hidden w-0 group-hover:w-8 t200e">
+                            <span class="pl-2 text-2xl">&rarr;</span>
+                        </span>
+                    </div>
+                    <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
+                    </div>
+                </a>
+
+            </div>
+        </div>
     </div>
+
 </div>

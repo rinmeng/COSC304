@@ -1,33 +1,51 @@
-<div style="margin:0 auto;text-align:center;display:inline">
+<nav class='flex justify-around items-center bg-slate-700 p-5 text-2xl'>
+    <a class='text-center opacity-100 p-3 hover:opacity-100 t200e text-6xl w-3/4' href='/'>PC8th</a>
+    <div class="flex justify-center w-full">
+        <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/listprod'>Product List</a>
+        <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/listorder'>Order List</a>
+        <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/showcart'>My Cart</a>
+    </div>
+    <div>
+        <a class='opacity-50 p-3 hover:opacity-100 t200e px-10' href='/login'>Login</a>
+    </div>
+</nav>
+<div class="flex items-center justify-center bg-slate-600 text-white">
+    <div class=" w-1/2 h-3/4 space-y-8 mp5 glass-slate rounded-xl ">
+        <div>
+            <h3 class="text-4xl my-8 font-light">
+                Login to your PC8th account
 
-    <h3>Please Login to System</h3>
+                {{#if loginMessage}}
+                <p class="mt-2 text-center text-sm ">
+                    {{loginMessage}}
+                </p>
+                {{/if}}
+        </div>
 
-    {{#if loginMessage}}
-        <p>{{loginMessage}}</p>
-    {{/if}}
+        <form class="mt-8 " name="MyForm" method="post" action="/validateLogin">
+            <div class="space-y-4 rounded-md shadow-sm">
+                <div>
+                    <label for="username" class=" text-2xl font-medium ">
+                        Username
+                    </label>
+                    <input type="text" name="username" maxlength="25"
+                        class="t200e text-center w-full p-3 forms text-white outline-none focus:bg-gray-600 focus:border-slate-900 t200e">
+                </div>
 
-    <br>
-    <form name="MyForm" method=post action="/validateLogin">
-        <table style="display:inline">
-            <tr>
-                <td>
-                    <div align="right">
-                        <font face="Arial, Helvetica, sans-serif" size="2">Username:</font>
-                    </div>
-                </td>
-                <td><input type="text" name="username" size=10 maxlength=10></td>
-            </tr>
-            <tr>
-                <td>
-                    <div align="right">
-                        <font face="Arial, Helvetica, sans-serif" size="2">Password:</font>
-                    </div>
-                </td>
-                <td><input type="password" name="password" size=10 maxlength="10"></td>
-            </tr>
-        </table>
-        <br />
-        <input class="submit" type="submit" name="Submit2" value="Log In">
-    </form>
+                <div>
+                    <label for="password" class="text-2xl font-medium ">
+                        Password
+                    </label>
+                    <input type="password" name="password" maxlength="10"
+                        class="t200e text-center w-full p-3 forms text-white outline-none focus:bg-gray-600 focus:border-slate-900 t200e">
+                </div>
+            </div>
 
+            <div>
+                <button type="submit" name="Submit2" class="btn w-full">
+                    Log In
+                </button>
+            </div>
+        </form>
+    </div>
 </div>

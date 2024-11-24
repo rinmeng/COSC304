@@ -2,23 +2,10 @@ const express = require('express');
 const router = express.Router();
 const sql = require('mssql');
 
-const dbConfig = {
-  server: 'cosc304_sqlserver',
-  database: 'shop',
-  authentication: {
-    type: 'default',
-    options: {
-      userName: 'sa',
-      password: '304#sa#pw'
-    }
-  },
-  options: {
-    encrypt: false,
-    enableArithAbort: false
-  }
-};
+
 
 router.get('/', function (req, res, next) {
+
   res.setHeader('Content-Type', 'text/html');
   res.write("<title>PC8th Parts</title>");
   res.write('<link href="/style.css" rel="stylesheet">');
@@ -57,6 +44,9 @@ router.get('/', function (req, res, next) {
             <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/listorder'>Order List</a>
             <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/showcart'>My Cart</a>
         </div>
+        <div>
+        <a class='opacity-50 p-3 hover:opacity-100 t200e px-10' href='/showcart'>Login</a>
+    </div>
     </nav>`);
 
       res.write("<h2 class='text-7xl my-5 font-light'>Product List</h2>");
@@ -115,10 +105,17 @@ router.get('/', function (req, res, next) {
           <div class="grid grid-cols-4 gap-4 items-center bg-slate-700 p-4 rounded-lg hover:bg-slate-800 t200e">
             <div class="text-left text-slate-300">${product.categoryName}</div>
             <div class="text-left">
-              <div class="font-medium">${product.productName}</div>
+              <div class="font-medium">
+                <a class="text-blue-400 hover:underline flex" href="/product?id=${encodeURIComponent(product.productId)}">
+                ${product.productName}
+
+                <img class="w-3 h-3 ml-1" src="/img/newtab.png">
+                </a>
+              </div>
               <div class="text-sm text-slate-300">${product.productDesc.substring(0, 50)}${product.productDesc.length > 50 ? '...' : ''}</div>
             </div>
             <div class="text-green-400 font-medium">$${product.productPrice.toFixed(2)}</div>
+
             <div>
               <a href='${addToCartUrl}' class="btn">
                 Add to Cart

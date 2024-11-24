@@ -16,6 +16,8 @@ let validateLogin = require('./routes/validateLogin');
 let logout = require('./routes/logout');
 let admin = require('./routes/admin');
 let product = require('./routes/product');
+let removecart = require('./routes/removecart');
+let removeallcart = require('./routes/removeallcart');
 let displayImage = require('./routes/displayImage');
 let customer = require('./routes/customer');
 let ship = require('./routes/ship');
@@ -89,6 +91,8 @@ app.use('/product', product);
 app.use('/displayImage', displayImage);
 app.use('/customer', customer);
 app.use('/ship', ship);
+app.use('/removecart', removecart);
+app.use('/removeallcart', removeallcart);
 
 // Starting our Express app
 app.listen(3000)
