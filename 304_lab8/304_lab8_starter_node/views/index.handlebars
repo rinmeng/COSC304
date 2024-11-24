@@ -1,30 +1,31 @@
 <div>
-    <nav class="fixed z-10 w-full flex justify-around items-center bg-slate-700 p-5 text-2xl ">
+    <nav
+        class="z-10 fixed w-full bg-gradient-to-t from-transparent to-slate-700 flex justify-between items-center px-10 py-8 text-2xl">
         <!-- Logo -->
         <a class="opacity-100 p-3 hover:opacity-100 t200e text-6xl w-3/4" href="/">PC8th</a>
 
         <!-- Navigation Links -->
         <div class="flex justify-center w-full">
             <!-- Product List -->
-            <div class="relative group p-3">
-                <a class="opacity-50 hover:opacity-100 t200e" href="/listprod">Product List</a>
+            <a href="/listprod" class="relative group p-3">
+                <div class="opacity-50 group-hover:opacity-100 t200e">Product List</div>
                 <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
                 </div>
-            </div>
+            </a>
 
             <!-- Order List -->
-            <div class="relative group p-3">
-                <a class="opacity-50 hover:opacity-100 t200e" href="/listorder">Order List</a>
+            <a href="/listorder" class="relative group p-3">
+                <div class="opacity-50 group-hover:opacity-100 t200e">Order List</div>
                 <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
                 </div>
-            </div>
+            </a>
 
             <!-- My Cart -->
-            <div class="relative group p-3">
-                <a class="opacity-50 hover:opacity-100 t200e" href="/showcart">My Cart</a>
+            <a href="/showcart" class="relative group p-3">
+                <div class="opacity-50 group-hover:opacity-100 t200e">My Cart</div>
                 <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
                 </div>
-            </div>
+            </a>
         </div>
 
         <!-- Login -->
@@ -32,6 +33,9 @@
             <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
         </div>
     </nav>
+
+
+
 
 
     <div class="relative w-full opacity-0 animate-fade-in-instant">

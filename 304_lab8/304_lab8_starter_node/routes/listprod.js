@@ -37,17 +37,39 @@ router.get('/', function (req, res, next) {
       let results = await request.query(sqlQuery);
 
 
-      res.write(`<nav class='flex justify-around items-center bg-slate-700 p-5 text-2xl'>
-        <a class='text-center opacity-100 p-3 hover:opacity-100 t200e text-6xl w-3/4' href='/'>PC8th</a>
-        <div class="flex justify-center w-full">
-            <a class='opacity-100 p-3 hover:opacity-100 t200e' href='/listprod'>Product List</a>
-            <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/listorder'>Order List</a>
-            <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/showcart'>My Cart</a>
-        </div>
-        <div>
-        <a class='opacity-50 p-3 hover:opacity-100 t200e px-10' href='/showcart'>Login</a>
+      res.write(`<nav class="z-10 w-full flex justify-around items-center bg-slate-700 p-5 text-2xl ">
+    <!-- Logo -->
+    <a class="opacity-100 p-3 hover:opacity-100 t200e text-6xl w-3/4" href="/">PC8th</a>
+
+    <!-- Navigation Links -->
+    <div class="flex justify-center w-full">
+        <!-- Product List -->
+        <a href="/listprod" class="relative group p-3">
+            <div class="opacity-100 group-hover:opacity-100 t200e">Product List</div>
+            <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-50 group-hover:scale-x-100 t200e">
+            </div>
+        </a>
+
+        <!-- Order List -->
+        <a href="/listorder" class="relative group p-3">
+            <div class="opacity-50 group-hover:opacity-100 t200e">Order List</div>
+            <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
+            </div>
+        </a>
+
+        <!-- My Cart -->
+        <a href="/showcart" class="relative group p-3">
+            <div class="opacity-50 group-hover:opacity-100 t200e">My Cart</div>
+            <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
+            </div>
+        </a>
     </div>
-    </nav>`);
+
+    <!-- Login -->
+    <div>
+        <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
+    </div>
+</nav>`);
       res.write("<div class='opacity-0 animate-fade-in-instant'>");
 
       res.write("<h2 class='text-7xl my-5 font-light'>Product List</h2>");

@@ -6,7 +6,7 @@ router.get('/', function (req, res, next) {
     res.write(`
         <title>PC8th Checkout</title>
         <link href="/style.css" rel="stylesheet">
-        <body class="min-h-screen bg-slate-600 flex items-center justify-center text-white">
+        <body class="min-h-screen bg-slate-600 flex items-center justify-center text-white opacity-0 animate-fade-in-instant">
             <div class="w-1/3 bg-slate-700 p-8 rounded-lg shadow-lg">
                 <h1 class="text-4xl font-bold  text-center mb-6">Checkout</h1>
                 <p class="text-lg text-gray-300 text-center mb-8">Enter your User ID to complete the transaction</p>

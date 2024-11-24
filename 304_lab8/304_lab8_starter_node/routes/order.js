@@ -24,17 +24,40 @@ router.get("/", async function (req, res, next) {
     res.write("<title>PC8th Order Processing</title>");
     res.write('<link href="/style.css" rel="stylesheet">');
     res.write('<body class="bg-slate-600">');
-    res.write(`<nav class='flex justify-around items-center bg-slate-700 p-5 text-2xl text-white'>
-        <a class='text-center opacity-100 p-3 hover:opacity-100 t200e text-6xl w-3/4' href='/'>PC8th</a>
+    res.write(`<nav class="z-10 w-full flex justify-around items-center bg-slate-700 p-5 text-2xl text-white">
+        <!-- Logo -->
+        <a class="opacity-100 p-3 hover:opacity-100 t200e text-6xl w-3/4" href="/">PC8th</a>
+
+        <!-- Navigation Links -->
         <div class="flex justify-center w-full">
-            <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/listprod'>Product List</a>
-            <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/listorder'>Order List</a>
-            <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/showcart'>My Cart</a>
+            <!-- Product List -->
+            <div class="relative group p-3">
+                <a class="opacity-50 hover:opacity-100 t200e" href="/listprod">Product List</a>
+                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
+                </div>
+            </div>
+
+            <!-- Order List -->
+            <div class="relative group p-3">
+                <a class="opacity-50 hover:opacity-100 t200e" href="/listorder">Order List</a>
+                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
+                </div>
+            </div>
+
+            <!-- My Cart -->
+            <div class="relative group p-3">
+                <a class="opacity-50 hover:opacity-100 t200e" href="/showcart">My Cart</a>
+                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
+                </div>
+            </div>
         </div>
+
+        <!-- Login -->
         <div>
-            <a class='opacity-50 p-3 hover:opacity-100 t200e px-10' href='/login'>Login</a>
+            <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
         </div>
     </nav>`);
+    res.write('<div class="opacity-0 animate-fade-in-instant">');
     let productList = req.session.productList || [];
 
     if (!req.query.userId) {
@@ -217,6 +240,8 @@ router.get("/", async function (req, res, next) {
         pool && pool.close();
     }
 
+    res.write("</div>");
+    res.write("</body>");
     res.end();
 });
 
