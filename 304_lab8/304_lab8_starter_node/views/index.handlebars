@@ -1,11 +1,20 @@
-<h1 align="center">Welcome to YOUR NAME Grocery</h1>
-<h2 align="center"><a href="/login">Login</a></h2>
-<h2 align="center"><a href="/listprod">Begin Shopping</a></h2>
-<h2 align="center"><a href="/listorder">List All Orders</a></h2>
-<h2 align="center"><a href="/customer">Customer Info</a></h2>
-<h2 align="center"><a href="/admin">Administrators</a></h2>
-<h2 align="center"><a href="/logout">Log out</a></h2>
+<div>
+    <nav class='flex justify-around items-center bg-slate-700 p-5 text-2xl'>
+        <a class='opacity-100 p-3 hover:opacity-100 t200e text-6xl w-3/4' href='/'>PC8th</a>
+        <div class="flex justify-center w-full">
+            <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/listprod'>Product List</a>
+            <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/listorder'>Order List</a>
+            <a class='opacity-50 p-3 hover:opacity-100 t200e' href='/showcart'>My Cart</a>
+        </div>
+    </nav>
+    <h1 class="text-7xl my-5 font-light">Welcome to PC8th Computer Parts</h1>
 
-{{#if username}}
-    <h3 align="center">Signed in as: {{username}}</h3>
-{{/if}}
+    <div class="flex space-x-5 justify-center text-2xl">
+        <a href="/listprod">
+            <h1 class="btn">Browse Products</h1>
+        </a>
+        <a href="/listorder">
+            <h1 class=" btn">List All Orders</h1>
+        </a>
+    </div>
+</div>

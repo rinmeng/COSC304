@@ -21,6 +21,9 @@ let customer = require('./routes/customer');
 let ship = require('./routes/ship');
 
 const app = express();
+
+
+// use public
 app.use(express.static('public'));
 
 // Enable parsing of requests for POST requests
@@ -30,7 +33,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // This DB Config is accessible globally
 dbConfig = {
   server: 'cosc304_sqlserver',
-  database: 'orders',
+  database: 'shop',
   authentication: {
     type: 'default',
     options: {
@@ -41,7 +44,7 @@ dbConfig = {
   options: {
     encrypt: false,
     enableArithAbort: false,
-    database: 'orders'
+    database: 'shop'
   }
 }
 
