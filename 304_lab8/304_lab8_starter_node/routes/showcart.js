@@ -18,6 +18,7 @@ router.get('/', function (req, res, next) {
             <a class='opacity-50 p-3 hover:opacity-100 t200e px-10' href='/login'>Login</a>
         </div>
     </nav>`);
+    res.write('<div class="opacity-0 animate-fade-in-instant">')
 
 
     if (req.session.productList && req.session.productList.filter(item => item).length > 0) {
@@ -116,7 +117,7 @@ router.get('/', function (req, res, next) {
             </a>
         </div>
     `);
-
+    res.write('</div>');
     res.write("</body>");
     res.end();
 });

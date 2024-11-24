@@ -20,6 +20,7 @@ router.get('/', async function (req, res, next) {
             <a class='opacity-50 p-3 hover:opacity-100 t200e px-10' href='/login'>Login</a>
         </div>
     </nav>`);
+        res.write('<div class=" opacity-0 animate-fade-in-instant">');
         res.write('<h1 class="text-7xl my-5 font-light text-center">Order List</h1>');
 
         let pool = await sql.connect(dbConfig);
@@ -91,7 +92,8 @@ router.get('/', async function (req, res, next) {
             res.write('<p class="text-center text-gray-400">No orders found.</p>');
         }
 
-        res.write('</div></body>');
+
+        res.write('</div></div></body>');
         res.end();
 
     } catch (err) {

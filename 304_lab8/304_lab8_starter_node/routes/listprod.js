@@ -9,7 +9,7 @@ router.get('/', function (req, res, next) {
   res.setHeader('Content-Type', 'text/html');
   res.write("<title>PC8th Parts</title>");
   res.write('<link href="/style.css" rel="stylesheet">');
-  res.write('<body class="text-white text-center bg-slate-600">');
+  res.write('<body class="text-white text-center bg-slate-600 ">');
 
   (async function () {
     try {
@@ -48,6 +48,7 @@ router.get('/', function (req, res, next) {
         <a class='opacity-50 p-3 hover:opacity-100 t200e px-10' href='/showcart'>Login</a>
     </div>
     </nav>`);
+      res.write("<div class='opacity-0 animate-fade-in-instant'>");
 
       res.write("<h2 class='text-7xl my-5 font-light'>Product List</h2>");
 
@@ -59,7 +60,7 @@ router.get('/', function (req, res, next) {
             value="${searchTerm}"
           >
           <button class='btn mx-2' type="submit">Search</button>
-          <a href="/listprod" class='btn-red mx-2 py-4'>Reset</a>
+          <a href="/listprod" class='btn-red mx-2'>Reset</a>
         </form>
       `);
 
@@ -69,6 +70,13 @@ router.get('/', function (req, res, next) {
           <div class="text-slate-300 mb-4">
             Found ${results.recordset.length} product${results.recordset.length !== 1 ? 's' : ''} 
             matching "${searchTerm}"
+          </div>
+        `);
+      } else {
+        res.write(`
+          <div class="text-slate-300 mb-4">
+            There are ${results.recordset.length} product${results.recordset.length !== 1 ? 's' : ''} 
+            in the store.
           </div>
         `);
       }
@@ -130,6 +138,7 @@ router.get('/', function (req, res, next) {
         </div>
       `);
 
+      res.write("</div>");
       res.write("</body>");
       res.end();
     } catch (err) {
