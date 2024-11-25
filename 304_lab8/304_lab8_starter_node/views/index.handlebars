@@ -28,17 +28,10 @@
             </a>
         </div>
 
-    <!-- Login / Username Display -->
-    <div>
-     {{#if user}}
-    <!-- If the user is authenticated, show their username -->
-    <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/profile">{{user.username}}</a>
-    {{else}}
-        <!-- If the user is not authenticated, show the Login link -->
-    <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
-    {{/if}}
-    </div>
-
+        <!-- Login -->
+        <div>
+            <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
+        </div>
     </nav>
 
 
