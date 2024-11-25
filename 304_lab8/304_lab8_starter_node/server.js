@@ -24,6 +24,21 @@ let ship = require('./routes/ship');
 
 const app = express();
 
+/* 
+Getting sqlserver initialized:
+  docker-compose up -d
+  docker exec -it cosc304-sqlserver bash
+In DDL folder:
+  docker cp SQLServer_shop.ddl cosc304-sqlserver:/
+
+In bash: 
+  cd opt/mssql-tools18/bin
+  ./sqlcmd -U sa -P 304#sa#pw -C
+  ./sqlcmd -U sa -P 304#sa#pw -C -e -i /SQLServer_shop.ddl
+In SQLCMD:
+  SELECT name FROM sys.databases;
+  go
+*/
 
 // use public
 app.use(express.static('public'));
