@@ -6,6 +6,7 @@ module.exports = {
         'fall-1': 'fallIn 1s ease-out forwards',
         'fall-2': 'fallIn 1s ease-out 0.75s forwards',
         'fall-3': 'fallIn 1s ease-out 1.5s forwards',
+        'fall-4': 'fallIn 1s ease-out 2.25s forwards',
         'fade-in': 'fadeIn 1s ease-out 1.5s forwards',
         'fade-in-instant': 'fadeIn 1s ease-out forwards',
       },

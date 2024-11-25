@@ -117,4 +117,16 @@
     @apply bg-gray-200 p-3 rounded-md t200e
     border-slate-700  border-2  text-slate-700 focus:outline-none focus:bg-slate-300;
   }
+
+  .title {
+    @apply text-7xl font-extralight text-white;
+  }
+
+  .card {
+    @apply flex justify-between items-center p-4 bg-slate-700 rounded-lg shadow-md hover:bg-slate-800 t200e;
+  }
+
+  .card-text-gray {
+    @apply font-bold opacity-50;
+  }
 }

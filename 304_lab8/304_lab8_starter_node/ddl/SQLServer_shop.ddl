@@ -229,35 +229,37 @@ INSERT INTO product (productName, categoryId, productDesc, productPrice, product
 go
 
 -- Warehouse
-INSERT INTO warehouse(warehouseName) VALUES ('Main warehouse');
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (1, 1, 5, 18);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (2, 1, 10, 19);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (3, 1, 3, 10);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (4, 1, 2, 22);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (5, 1, 6, 21);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (6, 1, 3, 25);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (7, 1, 1, 30);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (8, 1, 0, 40);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (9, 1, 2, 97);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (10, 1, 3, 31);
+-- Warehouse
+INSERT INTO warehouse (warehouseName) VALUES ('Main Warehouse');
 go
 
+-- Product Inventory
+INSERT INTO productinventory (productId, warehouseId, quantity, price) VALUES 
+(1, 1, 5, 18.00),
+(2, 1, 10, 19.00),
+(3, 1, 3, 10.00),
+(4, 1, 2, 22.00),
+(5, 1, 6, 21.00),
+(6, 1, 3, 25.00),
+(7, 1, 1, 30.00),
+(8, 1, 0, 40.00),
+(9, 1, 2, 97.00),
+(10, 1, 3, 31.00);
+go
+
+-- Customers
 INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES 
-('Marques', 'Brownlee', 'marc.brown@gmail.com', '204-111-2222', '103 AnyWhere Street', 'Winnipeg', 'MB', 'R3X 45T', 'Canada', 'marqbrown' , 'marqbrown');
-INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES 
-('Linus', 'Tech Tips', 'linus.tech@hotmail.ca', '572-342-8911', '222 Bush Avenue', 'Boston', 'MA', '22222', 'United States', 'linustechtips' , 'linustechtips');
-INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES 
-('Candace', 'Cole', 'cole@charity.org', '333-444-5555', '333 Central Crescent', 'Chicago', 'IL', '33333', 'United States', 'candace' , 'password');
-INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES 
-('Darren', 'Doe', 'oe@doe.com', '250-807-2222', '444 Dover Lane', 'Kelowna', 'BC', 'V1V 2X9', 'Canada', 'darren' , 'pw');
-INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES 
-('Elizabeth', 'Elliott', 'engel@uiowa.edu', '555-666-7777', '555 Everwood Street', 'Iowa City', 'IA', '52241', 'United States', 'beth' , 'test');
+('admin', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', 'admin'),
+('Marques', 'Brownlee', 'marc.brown@gmail.com', '204-111-2222', '103 AnyWhere Street', 'Winnipeg', 'MB', 'R3X 45T', 'Canada', 'marqbrown', 'marqbrown'),
+('Linus', 'Tech Tips', 'linus.tech@hotmail.ca', '572-342-8911', '222 Bush Avenue', 'Boston', 'MA', '22222', 'United States', 'linustechtips', 'linustechtips'),
+('Candace', 'Cole', 'candace.cole@example.com', '123-456-7890', '123 Maple Street', 'Toronto', 'ON', 'M5H 2N2', 'Canada', 'candacecole', 'candacecole'),
+('Elizabeth', 'Elliott', 'engel@uiowa.edu', '555-666-7777', '555 Everwood Street', 'Iowa City', 'IA', '52241', 'United States', 'beth', 'test');
 go
 
 
 -- Order 1 can be shipped as have enough inventory
 DECLARE @orderId int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (1, '2019-10-15 10:25:55', 2389.96)
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2019-10-15 10:25:55', 2389.96)
 SELECT @orderId = @@IDENTITY
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 1, 1, 589.99)
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 5, 2, 399.99)
@@ -265,14 +267,14 @@ INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId,
 go
 
 DECLARE @orderId2 int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2019-10-16 18:00:00', 1599.95)
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (3, '2019-10-16 18:00:00', 1599.95)
 SELECT @orderId2 = @@IDENTITY
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId2, 19, 5, 319.99);
 go
 
 -- Order 3 cannot be shipped as do not have enough inventory for item 7
 DECLARE @orderId3 int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (3, '2019-10-15 3:30:22', 459.98)
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (4, '2019-10-15 3:30:22', 459.98)
 SELECT @orderId3 = @@IDENTITY
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId3, 6, 2, 229.99)
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId3, 7, 3, 79.99);

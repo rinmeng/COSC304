@@ -53,8 +53,18 @@ router.get("/", async function (req, res, next) {
         </div>
 
         <!-- Login -->
-        <div>
-            <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
+        <div class="text-center items-center">
+            <!-- If logged in, show user's name and logout button -->
+            ${req.session.authenticated ? `
+                <p class="text-white px-3 w-full">Hey,
+                    <a href="/customer?userid={{userid}}" class="font-bold opacity-50 hover:opacity-100 t200e">
+                        <strong>${req.session.user}</strong>
+                    </a>
+                </p>
+                <a href="/logout" class="opacity-50 p-3 hover:opacity-100 t200e px-10">Logout</a>
+            ` : `
+                <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
+            `}
         </div>
     </nav>`);
     res.write('<div class="opacity-0 animate-fade-in-instant">');
@@ -220,6 +230,11 @@ router.get("/", async function (req, res, next) {
             <p class="text-lg font-bold">Thank you for your order!</p>
             <p class="text-sm text-gray-500">We will ship your purchase out soon.</p>
           </div>
+        </div>
+        <div class="text-center">
+            <a href="/listprod" class="btn">
+            &larr; Continue Shopping
+            </a>
         </div>
     `);
 

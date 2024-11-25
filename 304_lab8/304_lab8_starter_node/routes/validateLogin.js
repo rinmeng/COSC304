@@ -1,21 +1,19 @@
 const express = require("express");
 const router = express.Router();
-const auth = require("../auth");
 const sql = require("mssql");
 
-router.post("/", function (req, res) {
-  // Have to preserve async context since we make an async call
-  // to the database in the validateLogin function.
-  (async () => {
-    let authenticatedUser = await validateLogin(req, res);
-    if (authenticatedUser) {
-      res.redirect("/");
-    } else {
-      res.redirect("/login");
-    }
-  })();
+// Handle POST request for login
+router.post("/", async function (req, res) {
+  let authenticatedUser = await validateLogin(req, res);
+
+  if (authenticatedUser) {
+    res.redirect("/"); // Redirect to homepage after successful login
+  } else {
+    res.redirect("/login"); // Redirect back to login page if authentication fails
+  }
 });
 
+// The function that checks credentials
 async function validateLogin(req, res) {
   if (!req.body || !req.body.username || !req.body.password) {
     return false;
@@ -23,38 +21,34 @@ async function validateLogin(req, res) {
 
   let username = req.body.username;
   let password = req.body.password;
-  let authenticatedUser = await (async function () {
-    try {
-      let pool = await sql.connect(dbConfig);
 
-      // TODO: Check if userId and password match some customer account.
-      // If so, set authenticatedUser to be the username.
-      let result = await pool
-        .request()
-        .input("username", sql.VarChar, username)
-        .input("password", sql.VarChar, password)
-        .query(
-          "SELECT * FROM Customer WHERE userId = @username AND password = @password"
-        );
-      if (result.recordset.length > 0) {
-        // Redirect to admin
-        req.session.authenticated = true;
-        req.session.user = username;
-        res.redirect("/admin");
-      } 
-      else {
-        // TODO: error handling if wrong, tell user it incorrect
-        res.send("Incorrect username or password");
-      }
+  try {
+    // Connect to the database
+    let pool = await sql.connect(dbConfig);
 
-      return false;
-    } catch (err) {
-      console.dir(err);
-      return false;
+    // Query the database to check if user exists with the provided username and password
+    let result = await pool
+      .request()
+      .input("username", sql.VarChar, username)
+      .input("password", sql.VarChar, password)
+      .query("SELECT * FROM Customer WHERE userId = @username AND password = @password");
+
+    // If a matching user is found, authenticate them
+    if (result.recordset.length > 0) {
+      req.session.authenticated = true;
+      req.session.user = username; // Store username in session
+      req.session.userid = result.recordset[0].customerId; // Store userId in session
+      return true; // Return true to indicate successful login
+    } else {
+      // If credentials are incorrect, set an error message and redirect back to login
+      req.session.loginMessage = "Invalid username or password. Please try again.";
+      return false; // Return false to indicate failed login
     }
-  })();
-
-  return authenticatedUser;
+  } catch (err) {
+    console.error(err);
+    req.session.loginMessage = "An error occurred while processing your login request. Please try again later.";
+    return false;
+  }
 }
 
 module.exports = router;

@@ -7,7 +7,7 @@ router.get('/', function (req, res, next) {
     res.write("<title>Your Shopping Cart</title>");
     res.write('<link href="/style.css" rel="stylesheet">');
     res.write('<body class="text-white text-center bg-slate-600">');
-    res.write(`<nav class="z-10 w-full flex justify-around items-center bg-slate-700 p-5 text-2xl ">
+    res.write(`<nav class="z-10 w-full text-center flex justify-around items-center bg-slate-700 p-5 text-2xl ">
     <!-- Logo -->
     <a class="opacity-100 p-3 hover:opacity-100 t200e text-6xl w-3/4" href="/">PC8th</a>
 
@@ -36,8 +36,18 @@ router.get('/', function (req, res, next) {
     </div>
 
     <!-- Login -->
-    <div>
-        <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
+    <div class="text-center items-center">
+        <!-- If logged in, show user's name and logout button -->
+        ${req.session.authenticated ? `
+            <p class="text-white px-3 w-full">Hey,
+                <a href="/customer?userid={{userid}}" class="font-bold opacity-50 hover:opacity-100 t200e">
+                    <strong>${req.session.user}</strong>
+                </a>
+            </p>
+            <a href="/logout" class="opacity-50 p-3 hover:opacity-100 t200e px-10">Logout</a>
+        ` : `
+            <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
+        `}
     </div>
 </nav>`);
     res.write('<div class="opacity-0 animate-fade-in-instant">')

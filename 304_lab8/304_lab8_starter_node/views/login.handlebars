@@ -1,4 +1,4 @@
-<nav class="z-10 w-full flex justify-around items-center bg-slate-700 p-5 text-2xl ">
+<nav class="z-10 w-full flex justify-around items-center bg-slate-700 p-5 text-2xl">
     <!-- Logo -->
     <a class="opacity-100 p-3 hover:opacity-100 t200e text-6xl w-3/4" href="/">PC8th</a>
 
@@ -7,59 +7,74 @@
         <!-- Product List -->
         <a href="/listprod" class="relative group p-3">
             <div class="opacity-50 group-hover:opacity-100 t200e">Product List</div>
-            <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
-            </div>
+            <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e"></div>
         </a>
 
         <!-- Order List -->
         <a href="/listorder" class="relative group p-3">
             <div class="opacity-50 group-hover:opacity-100 t200e">Order List</div>
-            <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
-            </div>
+            <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e"></div>
         </a>
 
         <!-- My Cart -->
         <a href="/showcart" class="relative group p-3">
             <div class="opacity-50 group-hover:opacity-100 t200e">My Cart</div>
-            <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
-            </div>
+            <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e"></div>
         </a>
     </div>
 
-    <!-- Login -->
-    <div>
-        <a class="opacity-100 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
+    <!-- User Authentication -->
+    <div class="text-center items-center">
+        {{#if username}}
+        <!-- If logged in, show user's name and logout button -->
+        <p class="text-white px-3 w-full">Hey,
+            <a href="/customer?userid={{userid}}" class="font-bold opacity-50 hover:opacity-100 t200e">
+                {{username}}
+            </a>
+        </p>
+        <a href=" /logout" class="opacity-50 p-3 hover:opacity-100 t200e px-10">Logout</a>
+        {{else}}
+        <!-- If not logged in, show login button -->
+        <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
+        {{/if}}
+
     </div>
 </nav>
+
+{{#if loginMessage}}
+<h1 class="bg-red-500 text-white text-center p-3">
+    {{loginMessage}} <!-- Display the login message -->
+</h1>
+{{/if}}
 <div class="flex items-center justify-center bg-slate-600 text-white animate-fade-in-instant">
+
+
     <div class=" w-1/2 h-3/4 space-y-8 mp5 glass-slate rounded-xl ">
         <div>
-            <h3 class="text-4xl my-8 font-light">
+            <h3 class="title text-4xl">
                 Login to your PC8th account
 
-                {{#if loginMessage}}
-                <p class="mt-2 text-center text-sm ">
-                    {{loginMessage}}
-                </p>
-                {{/if}}
+            </h3>
         </div>
 
-        <form class="mt-8 " name="MyForm" method="post" action="/validateLogin">
+        <form class="my-0" name="MyForm" method="post" action="/validateLogin">
             <div class="space-y-4 rounded-md shadow-sm">
                 <div>
                     <label for="username" class=" text-2xl font-medium ">
                         Username
                     </label>
-                    <input type="text" name="username" maxlength="25"
-                        class="t200e text-center w-full p-3 forms text-white outline-none focus:bg-gray-600 focus:border-slate-900 t200e">
+                    <input type="text" name="username" maxlength="100"
+                        class="t200e text-center w-full p-3 forms text-white outline-none focus:bg-gray-600 focus:border-slate-900 t200e"
+                        required>
                 </div>
 
                 <div>
                     <label for="password" class="text-2xl font-medium ">
                         Password
                     </label>
-                    <input type="password" name="password" maxlength="10"
-                        class="t200e text-center w-full p-3 forms text-white outline-none focus:bg-gray-600 focus:border-slate-900 t200e">
+                    <input type="password" name="password" maxlength="100"
+                        class="t200e text-center w-full p-3 forms text-white outline-none focus:bg-gray-600 focus:border-slate-900 t200e"
+                        required>
                 </div>
             </div>
 
