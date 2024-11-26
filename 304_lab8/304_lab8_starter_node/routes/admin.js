@@ -91,14 +91,14 @@ router.get("/", function (req, res, next) {
     try {
       let pool = await sql.connect(dbConfig);
 
-      sqlQuery = `
+      salesQuery = `
             SELECT orderDate, SUM(totalAmount) as totalAmount
             FROM ordersummary
             GROUP BY orderDate
             ORDER BY orderDate
         `;
 
-      let result = await pool.request().query(sqlQuery);
+      let result = await pool.request().query(salesQuery);
       res.write(`
           <body class="bg-slate-600 h-screen">
           <nav class="text-white z-10 w-full flex justify-around items-center bg-slate-700 p-5 text-2xl ">

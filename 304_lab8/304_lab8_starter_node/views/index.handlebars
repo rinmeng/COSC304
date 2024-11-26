@@ -81,6 +81,7 @@
         {{#if admin}}
         <div class="flex flex-col items-center justify-center space-y-6">
           <span class="title opacity-0 animate-fall-1">You are logged in as <strong>admin.</strong></span>
+          <span class="title text-5xl opacity-0 animate-fall-2">What would you like to do today?</span>
           <a href="/ship"
             class="relative group font-bold bg-slate-800 p-5 bg-opacity-80 hover:bg-opacity-100 t200e rounded-md">
             <div class="flex items-center text-white">
@@ -106,7 +107,7 @@
         </div>
 
         {{else}}
-        <a href="/listorder"
+        <a href="/listprod"
           class="mt-8 relative group font-bold bg-slate-800 p-5 bg-opacity-80 hover:bg-opacity-100 t200e rounded-md">
           <div class="flex items-center text-white">
             <span class="text-2xl">Browse Products</span>
@@ -120,5 +121,13 @@
         {{/if}}
       </div>
     </div>
+  </div>
+
+  <div class="fixed z-50 text-gray-400 bottom-4 left-1/2 transform -translate-x-1/2 ">
+    <h1>
+      &copy; 2024 PC8th by
+      <span><a class="underline hover:text-gray-500 t200e" href="https://github.com/rinmeng">Rin Meng</a></span> &amp;
+      <span><a class="underline hover:text-gray-500 t200e" href="https://github.com/noahstew">Noah Stewart</a></span>
+    </h1>
   </div>
 </div>

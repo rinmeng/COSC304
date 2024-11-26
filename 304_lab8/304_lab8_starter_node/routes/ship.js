@@ -88,9 +88,9 @@ router.get("/", function (req, res, next) {
     res.write(`
     <main class="container mx-auto p-8">
       <h1 class="title text-center my-5">Process Order</h1>
-      <div class="flex justify-center items-center m-auto w-1/2 glass-slate rounded-xl ">
+      <div class="flex justify-center items-center m-auto w-1/3 glass-slate rounded-xl ">
         <form action="/ship" method="get" 
-        class="flex flex-col p-6 rounded-lg w-full">
+        class="flex flex-col p-5 rounded-lg w-full my-0 space-y-4">
             <input 
               type="text" 
               name="orderId" 
@@ -99,7 +99,7 @@ router.get("/", function (req, res, next) {
               required
             />
           <button type="submit" class="btn-green">
-            Process Order &rarr;
+            Ship Order &rarr;
           </button>
         </form>
       </div>

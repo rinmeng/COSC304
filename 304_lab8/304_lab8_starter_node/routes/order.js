@@ -3,22 +3,6 @@ const router = express.Router();
 const sql = require("mssql");
 const moment = require("moment");
 
-const dbConfig = {
-    server: "cosc304_sqlserver",
-    database: "shop",
-    authentication: {
-        type: "default",
-        options: {
-            userName: "sa",
-            password: "304#sa#pw",
-        },
-    },
-    options: {
-        encrypt: false,
-        enableArithAbort: false,
-    },
-};
-
 router.get("/", async function (req, res, next) {
     res.setHeader("Content-Type", "text/html");
     res.write("<title>PC8th Order Processing</title>");
@@ -100,20 +84,20 @@ router.get("/", async function (req, res, next) {
         // Invalid user ID
         if (userResult.recordset.length === 0) {
             res.write(`
-                <div class="p-4 bg-red-500 text-white">
+                <div class= "p-4 bg-red-500 text-white" >
                 <h3>Error: User ID does not exist</h3>
-                </div>
-            `);
+                </div >
+                `);
             res.end();
             return;
         }
 
         if (productList.length === 0) {
             res.write(`
-          <div class="p-4 bg-red-500 text-white">
-            <h3>Error: Shopping cart is empty</h3>
-          </div>
-        `);
+                <div class= "p-4 bg-red-500 text-white" >
+                <h3>Error: Shopping cart is empty</h3>
+          </div >
+                `);
             res.end();
             return;
         }
@@ -125,10 +109,10 @@ router.get("/", async function (req, res, next) {
         // Validate password
         if (inputPassword !== password) {
             res.write(`
-                <div class="p-4 bg-red-500 text-white">
-                <h3>Error: Incorrect password</h3>
-                </div>
-            `);
+            <div class= "p-4 bg-red-500 text-white" >
+            <h3>Error: Incorrect password</h3>
+                </div >
+                `);
 
             res.end();
             return;
@@ -159,7 +143,7 @@ router.get("/", async function (req, res, next) {
             console.log("Order ID:", orderId);
             if (!product) {
                 console.error(
-                    `Error: productList[${product.id}] is null or undefined.`
+                    `Error: productList[${product.id}]is null or undefined.`
                 );
                 success = false;
                 continue; // Skip this entry
@@ -194,7 +178,7 @@ router.get("/", async function (req, res, next) {
 
         // Display order summary
         res.write(`
-        <div class="my-10 w-1/3 mx-auto bg-white shadow-md rounded-lg p-6 text-gray-800">
+            <div class= "my-10 w-1/3 mx-auto bg-white shadow-md rounded-lg p-6 text-gray-800" >
           <h1 class="text-2xl font-bold text-center mb-4">Order Receipt</h1>
           <div class="border-b pb-4 mb-4">
             <p class="text-sm"><b>Order Date:</b> ${orderDate}</p>
@@ -230,27 +214,27 @@ router.get("/", async function (req, res, next) {
             <p class="text-lg font-bold">Thank you for your order!</p>
             <p class="text-sm text-gray-500">We will ship your purchase out soon.</p>
           </div>
-        </div>
-        <div class="text-center">
-            <a href="/listprod" class="btn">
-            &larr; Continue Shopping
-            </a>
-        </div>
+        </div >
+                <div class="text-center">
+                    <a href="/listprod" class="btn">
+                        &larr; Continue Shopping
+                    </a>
+                </div>
     `);
 
 
         // Clear shopping cart (session variable)
 
         if (success) {
-            //req.session.productList = [];
+            req.session.productList = [];
         }
     } catch (err) {
         console.log(err);
         res.write(`
-      <div class="p-4 bg-red-500 text-white">
-        <h3>Error: ${err.message}</h3>
-      </div>
-    `);
+                <div class= "p-4 bg-red-500 text-white" >
+                <h3>Error: ${err.message}</h3>
+      </div >
+                `);
     } finally {
         pool && pool.close();
     }
