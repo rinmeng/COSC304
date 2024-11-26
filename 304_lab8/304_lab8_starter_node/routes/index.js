@@ -10,7 +10,9 @@ router.get('/', function (req, res) {
         title: "PC8th Parts Store",
         username: req.session.user || null,
         // pass user id to the view
-        userid: req.session.userid || null
+        userid: req.session.userid || null,
+        // pass admin status to the view
+        admin: req.session.user === "admin",
         // HINT: Look at the /views/index.handlebars file
         // to get an idea of how the index page is being rendered
     });
