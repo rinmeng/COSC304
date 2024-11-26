@@ -143,22 +143,26 @@ router.get("/", function (req, res, next) {
 
           let sufficientInventory = true;
 
-          // Display order details
+          // Display order details with Grid Layout
           res.write(`
           <section class="mt-8">
-            <h2 class="text-2xl font-semibold">Order Details</h2>
-            <table class="table-auto w-full mt-4 border-collapse border border-gray-700">
-              <thead>
-                <tr class="bg-gray-700 text-white">
-                  <th class="p-3 border border-gray-600">Product Name</th>
-                  <th class="p-3 border border-gray-600">Product ID</th>
-                  <th class="p-3 border border-gray-600">Ordered Quantity</th>
-                  <th class="p-3 border border-gray-600">Previous Inventory</th>
-                  <th class="p-3 border border-gray-600">New Inventory</th>
-                  <th class="p-3 border border-gray-600">Status</th>
-                </tr>
-              </thead>
-              <tbody>
+            <h2 class="text-4xl font-semibold text-center mb-4">
+              Order Details (Order ID: ${req.query.orderId})
+            </h2>
+            <!-- Grid Container -->
+            <div class="max-w-6xl mx-auto bg-slate-800 rounded-2xl shadow-2xl overflow-hidden">
+              <!-- Grid Header -->
+              <div class="grid grid-cols-6 gap-4 bg-slate-900 p-6 border-b border-slate-700">
+                <div class="text-lg font-semibold text-white px-6">Product Name</div>
+                <div class="text-lg font-semibold text-white px-6">Product ID</div>
+                <div class="text-lg font-semibold text-white px-6">Ordered Quantity</div>
+                <div class="text-lg font-semibold text-white px-6">Previous Inventory</div>
+                <div class="text-lg font-semibold text-white px-6">New Inventory</div>
+                <div class="text-lg font-semibold text-white px-6">Status</div>
+              </div>
+
+              <!-- Grid Body -->
+              <div class="divide-y divide-slate-700">
         `);
 
           let newInventories = [];
@@ -172,18 +176,30 @@ router.get("/", function (req, res, next) {
             productIds.push(row.productId);
 
             res.write(`
-            <tr class="text-center border border-gray-600">
-              <td class="p-3">${row.productName}</td>
-              <td class="p-3">${row.productId}</td>
-              <td class="p-3">${row.orderedQuantity}</td>
-              <td class="p-3">${row.totalAvailableQuantity}</td>
-              <td class="p-3">${newInventory >= 0 ? newInventory : "N/A"}</td>
-              <td class="p-3 text-${status === "Unavailable" ? "red" : "green"}-500">${status}</td>
-            </tr>
-          `);
+                <div class="grid grid-cols-6 gap-4 p-6 hover:bg-slate-700 transition-colors duration-200">
+                  <div class="text-slate-300 px-6">${row.productName}</div>
+                  <div class="text-slate-300 px-6">${row.productId}</div>
+                  <div class="text-slate-300 px-6">${row.orderedQuantity}</div>
+                  <div class="text-slate-300 px-6">${row.totalAvailableQuantity}</div>
+                  <div class="text-slate-300 px-6">
+                    <span class="font-mono ${newInventory >= 0 ? '' : 'opacity-50'}">
+                      ${newInventory >= 0 ? newInventory : 'N/A'}
+                    </span>
+                  </div>
+                  <div class="text-slate-300 px-6">
+                    <span class="font-mono ${status === 'Unavailable' ? 'text-red-500' : 'text-green-500'}">
+                      ${status}
+                    </span>
+                  </div>
+                </div>
+            `);
           }
 
-          res.write("</tbody></table></section>");
+          res.write(`
+              </div>
+            </div>
+          </section>
+          `);
 
           // Shipment Status
           if (!sufficientInventory) {
