@@ -111,11 +111,10 @@
   }
 
   .forms {
-    @apply bg-slate-500 p-3 rounded-md border-slate-700 border-2  text-slate-700;
+    @apply bg-slate-700 p-3 rounded-md border-slate-700 border-2  text-slate-700;
   }
   .inner-forms {
-    @apply bg-gray-200 p-3 rounded-md t200e
-    border-slate-700  border-2  text-slate-700 focus:outline-none focus:bg-slate-300;
+    @apply w-full p-3 forms text-white outline-none bg-slate-700 focus:bg-slate-800 focus:border-slate-900 t200e;
   }
 
   .title {

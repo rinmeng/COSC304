@@ -5,32 +5,53 @@ const sql = require("mssql");
 router.get("/", function (req, res, next) {
   res.setHeader("Content-Type", "text/html");
   res.write('<link href="/style.css" rel="stylesheet">');
-  res.write('<body class="text-white bg-gray-800">');
+  res.write('<body class="text-white bg-slate-600">');
 
   // Navigation
   res.write(`
-    <nav class="text-white z-10 w-full flex justify-around items-center bg-slate-700 p-5 text-2xl">
-      <a class="opacity-100 p-3 hover:opacity-100 text-6xl" href="/">PC8th</a>
-      <div class="flex justify-center w-full">
-          <a href="/listprod" class="relative group p-3">
-              <div class="opacity-50 group-hover:opacity-100">Product List</div>
-          </a>
-          <a href="/listorder" class="relative group p-3">
-              <div class="opacity-50 group-hover:opacity-100">Order List</div>
-          </a>
-          <a href="/showcart" class="relative group p-3">
-              <div class="opacity-50 group-hover:opacity-100">My Cart</div>
-          </a>
-      </div>
-      <div class="text-center">
-          ${req.session.authenticated ? `
-              <p class="text-white">Hey, <strong>${req.session.user}</strong></p>
-              <a href="/logout" class="opacity-50 p-3 hover:opacity-100">Logout</a>
-          ` : `
-              <a class="opacity-50 p-3 hover:opacity-100" href="/login">Login</a>
-          `}
-      </div>
-    </nav>
+    <nav class="text-white z-10 w-full flex justify-around items-center bg-slate-700 p-5 text-2xl ">
+        <!-- Logo -->
+        <a class="opacity-100 p-3 hover:opacity-100 t200e text-center text-6xl w-3/4" href="/">PC8th</a>
+
+        <!-- Navigation Links -->
+        <div class="flex justify-center w-full">
+            <!-- Product List -->
+            <a href="/listprod" class="relative group p-3">
+                <div class="opacity-50 group-hover:opacity-100 t200e">Product List</div>
+                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
+                </div>
+            </a>
+
+            <!-- Order List -->
+            <a href="/listorder" class="relative group p-3">
+                <div class="opacity-50 group-hover:opacity-100 t200e">Order List</div>
+                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
+                </div>
+            </a>
+
+            <!-- My Cart -->
+            <a href="/showcart" class="relative group p-3">
+                <div class="opacity-50 group-hover:opacity-100 t200e">My Cart</div>
+                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
+                </div>
+            </a>
+        </div>
+
+        <!-- Login -->
+        <div class="text-center items-center">
+            <!-- If logged in, show user's name and logout button -->
+            ${req.session.authenticated ? `
+                <p class="text-white px-3 w-full">Hey,
+                  <a href="/customer?userid={{userid}}" class="font-bold opacity-50 hover:opacity-100 t200e">
+                      <strong>${req.session.user}</strong>
+                  </a>
+                </p>
+                <a href="/logout" class="opacity-50 p-3 hover:opacity-100 t200e px-10">Logout</a>
+            ` : `
+                <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
+            `}
+        </div>
+      </nav>
   `);
 
   // Authorization check for admin
@@ -66,20 +87,19 @@ router.get("/", function (req, res, next) {
     // Display "Process Order" form (only if user is admin)
     res.write(`
     <main class="container mx-auto p-8">
-      <h1 class="text-3xl text-center pb-4">Process Order</h1>
-      <div class="flex justify-center">
-        <form action="/ship" method="get" class="bg-gray-700 p-6 rounded-lg shadow-md">
-          <div class="mb-4">
+      <h1 class="title text-center my-5">Process Order</h1>
+      <div class="flex justify-center items-center m-auto w-1/2 glass-slate rounded-xl ">
+        <form action="/ship" method="get" 
+        class="flex flex-col p-6 rounded-lg w-full">
             <input 
-              type="number" 
+              type="text" 
               name="orderId" 
               placeholder="Order ID" 
-              class="text-center w-full p-3 rounded bg-gray-600 text-white outline-none focus:bg-gray-500 focus:ring-2 focus:ring-blue-400 transition duration-200"
+              class="inner-forms text-center text-white"
               required
             />
-          </div>
-          <button type="submit" class="px-6 py-2 bg-green-500 text-white rounded shadow-lg hover:bg-green-600 transition duration-200">
-            Process Order
+          <button type="submit" class="btn-green">
+            Process Order &rarr;
           </button>
         </form>
       </div>

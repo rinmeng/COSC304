@@ -1,39 +1,29 @@
 <div>
   <nav
-    class="z-10 fixed w-full bg-gradient-to-t from-transparent to-slate-700 flex justify-between items-center px-10 py-8 text-2xl"
-  >
+    class="z-10 fixed w-full bg-gradient-to-t from-transparent to-slate-700 flex justify-between items-center px-10 py-8 text-2xl">
     <!-- Logo -->
-    <a
-      class="opacity-100 p-3 hover:opacity-100 t200e text-6xl w-3/4"
-      href="/"
-    >PC8th</a>
+    <a class="opacity-100 p-3 hover:opacity-100 t200e text-6xl w-3/4" href="/">PC8th</a>
 
     <!-- Navigation Links -->
     <div class="flex justify-center w-full">
       <!-- Product List -->
       <a href="/listprod" class="relative group p-3">
         <div class="opacity-50 group-hover:opacity-100 t200e">Product List</div>
-        <div
-          class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e"
-        >
+        <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
         </div>
       </a>
 
       <!-- Order List -->
       <a href="/listorder" class="relative group p-3">
         <div class="opacity-50 group-hover:opacity-100 t200e">Order List</div>
-        <div
-          class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e"
-        >
+        <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
         </div>
       </a>
 
       <!-- My Cart -->
       <a href="/showcart" class="relative group p-3">
         <div class="opacity-50 group-hover:opacity-100 t200e">My Cart</div>
-        <div
-          class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e"
-        >
+        <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
         </div>
       </a>
     </div>
@@ -41,25 +31,16 @@
     <!-- Login / User Profile Section -->
     <div class="text-center items-center">
       {{#if username}}
-        <!-- If logged in, show user's name and logout button -->
-        <p class="text-white px-3 w-full">Hey,
-          <a
-            href="/customer?userid={{userid}}"
-            class="font-bold opacity-50 hover:opacity-100 t200e"
-          >
-            {{username}}
-          </a>
-        </p>
-        <a
-          href=" /logout"
-          class="opacity-50 p-3 hover:opacity-100 t200e px-10"
-        >Logout</a>
+      <!-- If logged in, show user's name and logout button -->
+      <p class="text-white px-3 w-full">Hey,
+        <a href="/customer?userid={{userid}}" class="font-bold opacity-50 hover:opacity-100 t200e">
+          {{username}}
+        </a>
+      </p>
+      <a href=" /logout" class="opacity-50 p-3 hover:opacity-100 t200e px-10">Logout</a>
       {{else}}
-        <!-- If not logged in, show login button -->
-        <a
-          class="opacity-50 p-3 hover:opacity-100 t200e px-10"
-          href="/login"
-        >Login</a>
+      <!-- If not logged in, show login button -->
+      <a class="opacity-50 p-3 hover:opacity-100 t200e px-10" href="/login">Login</a>
       {{/if}}
 
     </div>
@@ -68,68 +49,74 @@
   <!-- Banner Section (Optional) -->
   <div class="relative w-full opacity-0 animate-fade-in-instant">
     <div class="relative h-screen">
-      <img
-        src="/img/rtx5000.jpg"
-        class="absolute w-full h-full object-cover brightness-50 -z-10"
-        alt="RTX 5000"
-      />
+      <img src="/img/rtx5000.jpg" class="absolute w-full h-full object-cover brightness-50 -z-10" alt="RTX 5000" />
       <div class="absolute inset-0 flex flex-col items-center justify-center">
         <h1 class="font-thin text-white text-7xl text-center">
           {{#if username}}
-            <span class="block opacity-0 animate-fall-1">Welcome back
-              <strong>
-                {{username}}
-              </strong>
-              !
-            </span>
-            <span class="block text-5xl opacity-0 animate-fall-2">Shop the all
-              new RTX 5090.</span>
-            <span class="block text-4xl opacity-0 animate-fall-3">The most
-              powerful GPU in the world.</span>
-            <span class="block text-3xl opacity-0 animate-fall-4">Now available
-              at PC8th.</span>
+          {{#if admin}}
+
           {{else}}
-            <span class="block opacity-0 animate-fall-1">Shop the all new RTX
-              5090.</span>
-            <span class="block text-5xl opacity-0 animate-fall-2">The most
-              powerful GPU in the world.</span>
-            <span class="block text-3xl opacity-0 animate-fall-3">Now available
-              at PC8th.</span>
+          <span class="block opacity-0 animate-fall-1">Welcome back
+            <strong>
+              {{username}}
+            </strong>!
+          </span>
+          <span class="block text-5xl opacity-0 animate-fall-2">Shop the all
+            new RTX 5090.</span>
+          <span class="block text-4xl opacity-0 animate-fall-3">The most
+            powerful GPU in the world.</span>
+          <span class="block text-3xl opacity-0 animate-fall-4">Now available
+            at PC8th.</span>
+          {{/if}}
+          {{else}}
+          <span class="block opacity-0 animate-fall-1">Shop the all new RTX
+            5090.</span>
+          <span class="block text-5xl opacity-0 animate-fall-2">The most
+            powerful GPU in the world.</span>
+          <span class="block text-3xl opacity-0 animate-fall-3">Now available
+            at PC8th.</span>
           {{/if}}
 
         </h1>
         {{#if admin}}
-          <a
-            href="/ship" 
-            class="mt-8 relative group font-bold bg-slate-800 p-5 bg-opacity-80 hover:bg-opacity-100 t200e rounded-md"
-          >
+        <div class="flex flex-col items-center justify-center space-y-6">
+          <span class="title opacity-0 animate-fall-1">You are logged in as <strong>admin.</strong></span>
+          <a href="/ship"
+            class="relative group font-bold bg-slate-800 p-5 bg-opacity-80 hover:bg-opacity-100 t200e rounded-md">
             <div class="flex items-center text-white">
               <span class="text-2xl">Ship Orders</span>
               <span class="overflow-hidden w-0 group-hover:w-8 t200e">
                 <span class="pl-2 text-2xl">&rarr;</span>
               </span>
             </div>
-            <div
-              class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e"
-            >
+            <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
             </div>
           </a>
-        {{else}}
-                    <a
-            href="/listorder"
-            class="mt-8 relative group font-bold bg-slate-800 p-5 bg-opacity-80 hover:bg-opacity-100 t200e rounded-md"
-          >
+          <a href="/admin"
+            class="elative group font-bold bg-slate-800 p-5 bg-opacity-80 hover:bg-opacity-100 t200e rounded-md">
             <div class="flex items-center text-white">
-              <span class="text-2xl">Browse Products</span>
+              <span class="text-2xl">Sales Report</span>
               <span class="overflow-hidden w-0 group-hover:w-8 t200e">
                 <span class="pl-2 text-2xl">&rarr;</span>
               </span>
             </div>
-            <div
-              class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e"
-            >
+            <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
             </div>
           </a>
+        </div>
+
+        {{else}}
+        <a href="/listorder"
+          class="mt-8 relative group font-bold bg-slate-800 p-5 bg-opacity-80 hover:bg-opacity-100 t200e rounded-md">
+          <div class="flex items-center text-white">
+            <span class="text-2xl">Browse Products</span>
+            <span class="overflow-hidden w-0 group-hover:w-8 t200e">
+              <span class="pl-2 text-2xl">&rarr;</span>
+            </span>
+          </div>
+          <div class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 t200e">
+          </div>
+        </a>
         {{/if}}
       </div>
     </div>

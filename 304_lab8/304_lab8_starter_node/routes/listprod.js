@@ -81,7 +81,7 @@ router.get('/', function (req, res, next) {
                 </nav>`);
       res.write("<div class='opacity-0 animate-fade-in-instant'>");
 
-      res.write("<h2 class='text-7xl my-5 font-light'>Product List</h2>");
+      res.write("<h2 class='title my-5'>Product List</h2>");
 
       // We don't need to call another function to get the search term, we can just use the query parameter
       res.write(`
