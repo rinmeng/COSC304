@@ -58,29 +58,29 @@ router.get("/", function (req, res, next) {
         </div>
       </nav>
         <div class="text-center mp5 opacity-0 animate-fade-in-instant">
-        <!-- Header Section -->
-        <div class="text-center space-y-4">
-            <h1 class="text-7xl font-extralight text-white tracking-tight">Administration</h1>
-            <h1 class="text-4xl font-extrabold text-red-400">
-              You do not have permission to view this page.
-            </h1>
-            ${req.session.authenticated ? `
-              <p class="text-lg text-slate-300">You are logged in as <strong>${req.session.user}</strong></p>
+          <!-- Header Section -->
+          <div class="text-center space-y-4">
+              <h1 class="text-7xl font-extralight text-white tracking-tight">Administration</h1>
+              <h1 class="text-4xl font-extrabold text-red-400">
+                You do not have permission to view this page.
+              </h1>
+              ${req.session.authenticated ? `
+                <p class="text-lg text-slate-300">You are logged in as <strong>${req.session.user}</strong></p>
+                <p class="text-lg text-slate-300">Please log in as an admin to view this page.</p>
+              ` : `
               <p class="text-lg text-slate-300">Please log in as an admin to view this page.</p>
-            ` : `
-            <p class="text-lg text-slate-300">Please log in as an admin to view this page.</p>
-            `}
+              `}
+          </div>
+          
+          <!-- Login Button -->
+          <div class="flex justify-center">
+              <form action="/login" method="get">
+                  <button class="btn">
+                      Login &rarr;
+                  </button>
+              </form>
+          </div>
         </div>
-        
-        <!-- Login Button -->
-        <div class="flex justify-center">
-            <form action="/login" method="get">
-                <button class="btn">
-                    Login &rarr;
-                </button>
-            </form>
-        </div>
-      </div>
     </body>   
     `);
     res.end();
