@@ -73,7 +73,7 @@ router.get("/", function (req, res, next) {
         </div>
         
         <!-- Login Button -->
-        <div class="">
+        <div class="flex justify-center">
             <form action="/login" method="get">
                 <button class="btn">
                     Login &rarr;

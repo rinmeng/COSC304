@@ -36,7 +36,6 @@ router.get('/', function (req, res, next) {
       }
       let results = await request.query(sqlQuery);
 
-
       res.write(`<nav class="z-10 w-full flex justify-around items-center bg-slate-700 p-5 text-2xl ">
                     <!-- Logo -->
                     <a class="opacity-100 p-3 hover:opacity-100 t200e text-6xl w-3/4" href="/">PC8th</a>
